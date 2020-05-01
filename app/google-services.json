@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1025352718826",
+    "firebase_url": "https://timetoworkout-7b77d.firebaseio.com",
+    "project_id": "timetoworkout-7b77d",
+    "storage_bucket": "timetoworkout-7b77d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025352718826:android:78688ea74bc126a4",
+        "android_client_info": {
+          "package_name": "pl.fitandyummy.timetoworkout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025352718826-tb4vkloh1c7fsqe1nbf8fu1lg6rheuc4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.fitandyummy.timetoworkout",
+            "certificate_hash": "7f61b9f3cf47f3866345ccae0a4575d27465b405"
+          }
+        },
+        {
+          "client_id": "1025352718826-mpjqv185k8e3deaamrb90ac980ndhpo1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlK6Xh1H3iSPXZbpGfe0bPhwo-j29pg4o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025352718826-mpjqv185k8e3deaamrb90ac980ndhpo1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
