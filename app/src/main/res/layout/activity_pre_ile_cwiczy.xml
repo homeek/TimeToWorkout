@@ -7,11 +7,9 @@
     tools:context="pl.fitandyummy.timetoworkout.ActivityPreIleCwiczy">
 
 
-
     <include
         android:id="@+id/toolbar"
-        layout="@layout/tool_bar_ilebije_yes_arrow"
-        />
+        layout="@layout/tool_bar_ilebije_yes_arrow" />
 
 
     <EditText
@@ -19,11 +17,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ChonometryLinearL"
-        android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         android:hint=" EXERCISE NAME "
         android:textAlignment="center"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:gravity="center_horizontal" />
 
     <LinearLayout
         android:id="@+id/ChonometryLinearL"
@@ -42,15 +41,12 @@
             android:layout_marginRight="10dp">
 
             <TextView
-
-
                 android:id="@+id/dataTextV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:text="data"
                 android:textColor="@color/colorPrimaryDark"
-                android:text="data"/>
-
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -66,9 +62,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="20sp"
                 android:text="godzina"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -78,30 +74,27 @@
         android:id="@+id/period"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/telebim"
+        android:layout_alignParentStart="true"
         android:layout_marginTop="30dp"
+        android:orientation="horizontal"
         android:paddingRight="10dp"
-        android:orientation="horizontal">
+        android:layout_alignParentLeft="true">
 
         <TextView
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".5"
             android:layout_marginLeft="10dp"
-            android:text="Period time:"
-            />
+            android:layout_weight=".5"
+            android:text="Period time:" />
 
         <TextView
-
             android:id="@+id/periodValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".2"
             android:layout_marginLeft="10dp"
-            android:text=" "
-            />
+            android:layout_weight=".2"
+            android:text=" " />
 
         <SeekBar
             android:id="@+id/seekBarPeriod"
@@ -109,9 +102,8 @@
             android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_weight="1"
-            android:paddingRight="10dp"
-
             android:max="240"
+            android:paddingRight="10dp"
             android:progress="5" />
 
         <ImageView
@@ -121,37 +113,27 @@
             android:layout_weight=".35"
             android:onClick="onSeekOff"
             android:src="@drawable/szescdziesiatoff"
-
             />
 
 
-
-
-
-
     </LinearLayout>
-
-
-
-
 
     <LinearLayout
         android:id="@+id/superSeries"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/period"
+        android:layout_alignParentStart="true"
         android:layout_marginTop="30dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true">
 
         <TextView
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginLeft="10dp"
-            android:text="Super Sets:"
-            />
+            android:layout_weight="1"
+            android:text="Super Sets:" />
 
 
         <ImageView
@@ -159,7 +141,6 @@
             android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_weight="1"
-            android:onClick="onTrzydziesciS"
             android:src="@drawable/doubleoff" />
 
         <ImageView
@@ -167,122 +148,88 @@
             android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_weight="1"
-            android:onClick="onSzescdziesiatS"
             android:src="@drawable/tripleoff"
-
             />
 
     </LinearLayout>
 
-
-
-
     <ImageView
         android:id="@+id/tlo"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:alpha=".1"
         android:scaleX="1.0"
         android:scaleY="1.0"
         android:src="@drawable/ttwlgo" />
 
-
-
-<LinearLayout
-
-    android:id="@+id/batonyLL"
-    android:layout_below="@+id/superSeries"
-    android:layout_width="match_parent"
-    android:layout_height="180dp"
-    android:layout_marginTop="20dp"
-    android:orientation="vertical">
-
-
-
-
-
     <LinearLayout
 
-        android:layout_width="220dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
+        android:id="@+id/batonyLL"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_below="@+id/superSeries"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
-
-        <ImageView
-            android:id="@+id/savebutton"
+        <LinearLayout
+            android:layout_width="220dp"
+            android:layout_height="80dp"
             android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/start"
-            android:scaleY="1.6"
-            android:onClick="Stop"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
-            />
+            <ImageView
+                android:id="@+id/savebutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:onClick="Stop"
+                android:scaleY="1.6"
+                android:src="@drawable/start"
+                />
 
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="220dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/DoListyTreingow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:onClick="doListyTreningowBaton"
+                android:scaleY="1.6"
+                android:src="@drawable/my_workouts"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-
-    <LinearLayout
-
-        android:layout_width="220dp"
-        android:layout_height="80dp"
-        android:layout_gravity="center"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
-
-        <ImageView
-            android:id="@+id/DoListyTreingow"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/my_workouts"
-            android:scaleY="1.6"
-            android:onClick="doListyTreningowBaton"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
-
-            />
-
-
-
-
-    </LinearLayout>
-
-
-</LinearLayout>
-
-
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
         android:layout_below="@+id/batonyLL"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-7671780201496787/4270444974">
-    </com.google.android.gms.ads.AdView>
-
-
-
+        ads:adUnitId="ca-app-pub-7671780201496787/4270444974" />
 
 </RelativeLayout>
-
-

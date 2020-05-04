@@ -6,23 +6,19 @@
     android:layout_height="match_parent"
     tools:context="pl.fitandyummy.timetoworkout.ActivityIleCwiczy">
 
-
-
     <include
         android:id="@+id/toolbar"
-        layout="@layout/tool_bar_ilebije_no_arrow"
-        />
-
+        layout="@layout/tool_bar_ilebije_no_arrow" />
 
     <TextView
         android:id="@+id/telebim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:text=" n "
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <LinearLayout
         android:id="@+id/ChonometryLinearL"
@@ -38,16 +34,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginRight="60dp">
+            android:layout_marginRight="60dp"
+            android:layout_marginEnd="60dp">
 
             <Chronometer
-
-
                 android:id="@+id/chronoWorkRaz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp" />
-
 
         </LinearLayout>
 
@@ -56,7 +50,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="60dp">
+            android:layout_marginLeft="60dp"
+            android:layout_marginStart="60dp">
 
             <Chronometer
                 android:id="@+id/godzinaTextV"
@@ -74,29 +69,24 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/ChonometryLinearL"
         android:layout_below="@id/ChonometryLinearL"
+        android:layout_alignTop="@+id/ChonometryLinearL"
         android:layout_centerHorizontal="true"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
         android:scaleX="1"
         android:scaleY="1.5"
-        android:src="@drawable/start" />
-
-
+        android:src="@drawable/start"
+        android:layout_marginEnd="20dp" />
 
     <LinearLayout
         android:id="@+id/mainKokpit"
-        android:layout_below="@id/button2"
-        android:layout_marginTop="1dp"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/button2"
         android:layout_centerInParent="true"
-
-
+        android:layout_marginTop="1dp"
         android:orientation="horizontal">
-
 
         <LinearLayout
             android:id="@+id/main_batony"
@@ -111,30 +101,23 @@
                 android:id="@+id/mSvLaps"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:alpha="10"
                 android:background="@color/colorPrimaryTransp"
                 android:fadingEdge="horizontal|vertical"
-                tools:alpha="50">
-            </android.support.v7.widget.RecyclerView>
+                tools:alpha="50" />
 
-
-                <TextView
-                    android:id="@+id/mEtLaps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:padding="5dp"
-
-                    android:text="   "
-                    android:textColor="@color/czarny"
-                    android:textSize="12sp"
-                    tools:text=" " />
-
-
-
-
+            <TextView
+                android:id="@+id/mEtLaps"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                android:text="   "
+                android:textColor="@color/czarny"
+                android:textSize="12sp"
+                tools:text=" " />
 
         </LinearLayout>
 
@@ -147,35 +130,20 @@
             android:gravity="center"
             android:orientation="vertical">
 
-
-
-
-
-
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/mSvLaps2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:alpha="10"
                 android:background="@color/colorPrimaryTransp"
                 android:fadingEdge="horizontal|vertical"
-                tools:alpha="50">
-            </android.support.v7.widget.RecyclerView>
-
-
-
-
-
-
+                tools:alpha="50" />
 
         </LinearLayout>
 
     </LinearLayout>
-
-
 
     <LinearLayout
         android:id="@+id/period"
@@ -183,27 +151,27 @@
         android:layout_height="30dp"
         android:layout_below="@+id/StopReset"
         android:layout_marginTop="5dp"
+        android:orientation="horizontal"
         android:paddingRight="10dp"
-        android:orientation="horizontal">
+        android:paddingEnd="10dp"
+        tools:ignore="RtlSymmetry">
 
         <TextView
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".5"
             android:layout_marginLeft="10dp"
+            android:layout_weight=".5"
             android:text="Period time:"
-            />
+            android:layout_marginStart="10dp" />
 
         <TextView
-
             android:id="@+id/periodValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".2"
             android:layout_marginLeft="10dp"
+            android:layout_weight=".2"
             android:text=" 0 s"
-            />
+            android:layout_marginStart="10dp" />
 
         <SeekBar
             android:id="@+id/seekBarPeriod"
@@ -211,32 +179,24 @@
             android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_weight="1"
-            android:paddingRight="10dp"
-
             android:max="240"
-            android:progress="5" />
-
-
-
+            android:paddingRight="10dp"
+            android:progress="5"
+            android:paddingEnd="10dp" />
 
         <ImageView
             android:id="@+id/seekBarOff"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight=".35"
-            android:onClick="onSeekOff"
             android:src="@drawable/szescdziesiatoff"
-
             />
 
     </LinearLayout>
 
 
-
-
     <ImageView
         android:id="@+id/tlo"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -244,24 +204,18 @@
         android:alpha=".1"
         android:scaleX="1.0"
         android:scaleY="1.0"
-        android:src="@drawable/ttwlgo" />
+        android:src="@drawable/ttwlgo"
+        android:layout_alignParentLeft="true" />
 
-
-
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
         android:layout_below="@+id/period"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-7671780201496787/4270444974">
-    </com.google.android.gms.ads.AdView>
-
-
-
+        ads:adUnitId="ca-app-pub-7671780201496787/4270444974" />
 
     <LinearLayout
         android:id="@+id/StopReset"
@@ -271,51 +225,28 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
-
         <ImageView
             android:id="@+id/savebutton"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/stop"
-            android:scaleY="1.6"
-            android:onClick="Stop"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
-
+            android:scaleY="1.6"
+            android:src="@drawable/stop"
             />
 
         <ImageView
             android:id="@+id/Reset"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/reset"
-            android:scaleY="1.6"
-            android:onClick="Reset"
             android:layout_margin="20dp"
             android:layout_weight="1"
-
-
+            android:onClick="Reset"
+            android:scaleY="1.6"
+            android:src="@drawable/reset"
             />
 
     </LinearLayout>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </RelativeLayout>
-
-

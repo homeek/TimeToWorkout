@@ -9,46 +9,40 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/tool_bar_ilebije_no_arrow"
-        />
-
+        layout="@layout/tool_bar_ilebije_no_arrow" />
 
     <ImageView
-
         android:id="@+id/tlo"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:alpha="0.2"
         android:scaleX="0.8"
         android:scaleY="0.8"
-        android:src="@drawable/ttwlgo"/>
-
+        android:src="@drawable/ttwlgo" />
 
     <TextView
         android:id="@+id/telebim"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_below="@+id/toolbar"
+        android:layout_marginTop="20dp"
         android:text="TODAY WORKOUT"
         android:textAlignment="center"
-        android:textSize="20dp"
         android:textColor="@color/colorPrimaryDark"
-        android:layout_marginTop="20dp"
-        />
+        android:textSize="20dp"
+        android:gravity="center_horizontal" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listaTreningowRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/transpBrowa"
-        android:padding="2dp"
-        android:scrollbars="vertical"
+        android:layout_below="@id/toolbar"
         android:layout_marginTop="65dp"
         android:layout_marginBottom="120dp"
-
-        android:layout_below="@id/toolbar">
+        android:background="@color/transpBrowa"
+        android:padding="2dp"
+        android:scrollbars="vertical">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -65,26 +59,17 @@
 
             <EditText
                 android:id="@+id/edittext_koment"
-                android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="2"
                 android:hint=" Workout description "
                 android:textAlignment="center"
                 android:textSize="15dp" />
 
-
-
         </LinearLayout>
 
-
-
-
-
-
-
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -93,33 +78,26 @@
         android:layout_margin="10dp"
         android:orientation="horizontal">
 
-
-
         <ImageView
-
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/next_exercise"
-            android:scaleY="1.5"
-            android:onClick="doNastepnegoCwiczenia"
+            android:layout_centerInParent="true"
             android:layout_margin="10dp"
             android:layout_weight="1"
-
+            android:onClick="doNastepnegoCwiczenia"
+            android:scaleY="1.5"
+            android:src="@drawable/next_exercise"
             />
 
         <ImageView
-
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/finish_workout"
-            android:scaleY="1.5"
-            android:onClick="doListyTreningow"
+            android:layout_centerInParent="true"
             android:layout_margin="10dp"
             android:layout_weight="1"
-
-
+            android:onClick="doListyTreningow"
+            android:scaleY="1.5"
+            android:src="@drawable/finish_workout"
             />
 
     </LinearLayout>
