@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TimeTo Workout</string>
+    <string name="end_at">end at :</string>
 </resources>

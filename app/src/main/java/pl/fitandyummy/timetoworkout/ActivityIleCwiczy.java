@@ -34,13 +34,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ActivityIleCwiczy extends AppCompatActivity {
 
-
-    private ImageButton StartWork, StopWork, ResetWork, StartRest, StopRest, ResetRest;
-    TextView mocarnoscTxt, nasza, sprobuj,  sumaWork, sumaRest;
     public Typeface text1;
-
     private TextView telebim;
-
     public Chronometer chronometerWork;
     public Chronometer chronometerRest;
     public boolean runningWork;
@@ -48,55 +43,38 @@ public class ActivityIleCwiczy extends AppCompatActivity {
     public long pauseoffsetWork;
     public long pauseoffsetRest;
 
-    public ScrollView mSvlaps2, mSvlaps;
-
-    private int mRest, mLaps, elapsedMillisWork, elapsedMilisRest;
-
+    private int mRest, mLaps;
     private int intSumaWork, intSumaRest;
-
 
     private ImageView TheButton, StopButton, trzydziesciSekundOn, szescdziesiatSekundOn, periodValueOFf;
 
-
-    int  periodValueInttt;
+    int periodValueInttt;
     private SeekBar seekBarValue;
     public TextView periodValue;
-
 
     public String lap2, lap;
 
     private AdView mAdView;
 
-    public boolean trzysziesciSekundRestBoolean, szescdziesiatSekundRestBoolen, periodBooleannn =false;
+    public boolean trzysziesciSekundRestBoolean, szescdziesiatSekundRestBoolen, periodBooleannn = false;
     public boolean stopSaveBoolen;
 
     private RecyclerView mRecyclerViewWork, mRecyclerViewRest;
     private RecyclerView.Adapter mAdapterWork, mAdapterRest;
     private RecyclerView.LayoutManager mLayoutManager;
-    public ArrayList<ElementyTreningu> listaETWork, listaETRest ;
+    public ArrayList<ElementyTreningu> listaETWork, listaETRest;
     public ArrayList<ElementyListyCwiczen> listaCW;
 
-     int year;
-     int month;
-     int day;
-
-     int h ;
-    int m ;
-    int hStartu ;
-    int mStartu ;
-
-
-    int dupal;
+    int year;
+    int month;
+    int day;
+    int h;
+    int m;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ile_cwiczy);
-
-
-
-
-
 
         createRecyclerViewWork();
         createRecyclerViewRest();
@@ -115,60 +93,29 @@ public class ActivityIleCwiczy extends AppCompatActivity {
 
         mAdapterWork.notifyDataSetChanged();
 
-
-        //baner AdMob
-
+//baner AdMob
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-7671780201496787~9718212776");
-
         //   MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
-
-
         mAdView = findViewById(R.id.adView);
-
         AdRequest adRequest = new AdRequest.Builder()
-
-             //   .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                //   .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
-
         mAdView.loadAd(adRequest);
-
-
-        //deklaracja obiektow z xml
 
         chronometerWork = (Chronometer) findViewById(R.id.chronoWorkRaz);
         chronometerRest = (Chronometer) findViewById(R.id.godzinaTextV);
-
-
 
         TheButton = (ImageView) findViewById(R.id.button2);
         trzydziesciSekundOn = (ImageView) findViewById(R.id.trzydziesciSOff);
         szescdziesiatSekundOn = (ImageView) findViewById(R.id.szescdziesiatSOff);
 
         StopButton = (ImageView) findViewById(R.id.savebutton);
-
-
-        //  nasza = (TextView) findViewById(R.id.naszaapka);
-        //  sprobuj = (TextView) findViewById(R.id.sprobuj);
-
-       // mSvlaps = (ScrollView) findViewById(R.id.mSvLaps);
-       // mSvlaps2 = (ScrollView) findViewById(R.id.mSvLaps2);
-        //sumaWork = (TextView) findViewById(R.id.sumaWork);
-       // sumaRest = (TextView) findViewById(R.id.sumaRest);
-
-
         telebim = (TextView) findViewById(R.id.telebim);
-
-
-        periodValue = (TextView ) findViewById(R.id.periodValue);
-
+        periodValue = (TextView) findViewById(R.id.periodValue);
         seekBarValue = (SeekBar) findViewById(R.id.seekBarPeriod);
-
-
         periodValueOFf = (ImageView) findViewById(R.id.seekBarOff);
 
-
         setPeriodValueText();
-
 
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT
                 | ItemTouchHelper.RIGHT) {
@@ -180,21 +127,12 @@ public class ActivityIleCwiczy extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int i) {
-
-                // int position = viewHolder.getAdapterPosition();
-                //  listaLTR.remove(position);
-                //  mAdapterLT.notifyItemRemoved(position);
-             //   listaETWork.remove(viewHolder.getAdapterPosition());
                 listaETRest.remove(viewHolder.getAdapterPosition());
-             //   mAdapterWork.notifyDataSetChanged();
                 mAdapterRest.notifyDataSetChanged();
-
             }
         });
 
-      //  helper.attachToRecyclerView(mRecyclerViewWork);
         helper.attachToRecyclerView(mRecyclerViewRest);
-
 
         ItemTouchHelper helper2 = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT
                 | ItemTouchHelper.RIGHT) {
@@ -206,118 +144,59 @@ public class ActivityIleCwiczy extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int i) {
-
-                // int position = viewHolder.getAdapterPosition();
-                //  listaLTR.remove(position);
-                //  mAdapterLT.notifyItemRemoved(position);
                 listaETWork.remove(viewHolder.getAdapterPosition());
-              //  listaETRest.remove(viewHolder.getAdapterPosition());
                 mAdapterWork.notifyDataSetChanged();
-              //  mAdapterRest.notifyDataSetChanged();
-
             }
         });
 
         helper2.attachToRecyclerView(mRecyclerViewWork);
-       // helper.attachToRecyclerView(mRecyclerViewRest);
-
 
         Intent intent = getIntent();
         String nazwaCiczenia = intent.getStringExtra("nazwaCwiczenia");
-        int rok = intent.getIntExtra("year",99);
-        int miesiac = intent.getIntExtra("month",99);
-        int dzien = intent.getIntExtra("day",99);
-        int godzina = intent.getIntExtra("h",99);
-        int minuty = intent.getIntExtra("m",99);
+        int rok = intent.getIntExtra("year", 99);
+        int miesiac = intent.getIntExtra("month", 99);
+        int dzien = intent.getIntExtra("day", 99);
+        int godzina = intent.getIntExtra("h", 99);
+        int minuty = intent.getIntExtra("m", 99);
         int periodValueInt = intent.getIntExtra("periodValue", 3600);
-        boolean intentTrzysziesciSekundRestBoolean = intent.getBooleanExtra("boolean30",false);
-        boolean intentSzescdziesiatSekundRestBoolen = intent.getBooleanExtra("boolean60",false);
-        boolean periodBoolean = intent.getBooleanExtra("booleanPeriod",false);
-
+        boolean intentTrzysziesciSekundRestBoolean = intent.getBooleanExtra("boolean30", false);
+        boolean intentSzescdziesiatSekundRestBoolen = intent.getBooleanExtra("boolean60", false);
+        boolean periodBoolean = intent.getBooleanExtra("booleanPeriod", false);
 
         trzysziesciSekundRestBoolean = intentTrzysziesciSekundRestBoolean;
         szescdziesiatSekundRestBoolen = intentSzescdziesiatSekundRestBoolen;
 
-
-
-         year = rok;
-         month = miesiac;
-         day = dzien;
-         h = godzina;
-         m = minuty;
+        year = rok;
+        month = miesiac;
+        day = dzien;
+        h = godzina;
+        m = minuty;
 
         periodValueInttt = periodValueInt;
-
         periodBooleannn = periodBoolean;
 
-
-
-
-       // periodValue.setText(""+ periodValueInt +" s");
-
         setPeriodValueText();
-
-
-
-
-
-
-
-
-
         telebim.setText(nazwaCiczenia);
-
-
-
-        text1 = Typeface.createFromAsset(getAssets(),"fonts/KO.ttf");
-
+        text1 = Typeface.createFromAsset(getAssets(), "fonts/KO.ttf");
         chronometerWork.setTypeface(text1);
         chronometerRest.setTypeface(text1);
-
-
-
-      //  sumaRest.setTypeface(text1);
-       // sumaWork.setTypeface(text1);
-
         telebim.setTypeface(text1);
-
-       // ustawienieRestow();
-
         ustawieniPeriodBoolean();
 
-
-
-
-
-
         //seekbary
-
-
-
         seekBarValue.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar,  int progress, boolean fromUser) {
-
-
-
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 periodValue.setTextColor(0xFFB73E02);
-
-                periodValue.setText(""+progress+" s");
-
+                periodValue.setText("" + progress + " s");
                 periodValueInttt = progress;
-
                 periodBooleannn = true;
                 periodValueOFf.setImageResource(R.drawable.tripleon);
-
-
-
-
 
                 chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                     @Override
                     public void onChronometerTick(Chronometer chronometerRest) {
-                        if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > periodValueInttt*1000 ){
-
+                        if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > periodValueInttt * 1000) {
                             onClickStartWrok();
                             letsWork();
                             onClickStopRest();
@@ -325,59 +204,31 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                         }
                     }
                 });
-
-
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
-
-                Toast.makeText(ActivityIleCwiczy.this, "REST period "+periodValueInttt+" s", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(ActivityIleCwiczy.this, "REST period " + periodValueInttt + " s", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-
-
-
-
-
-
-
-
-
-        // główny button petla if else
+// główny button petla if else
 
         TheButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (!runningWork&&!runningRest) {
+                if (!runningWork && !runningRest) {
                     onClickStartWrok();
                     start();
-                } else
 
-
-
-                if ( runningWork &&!runningRest) {
-
-
-                   // Toast.makeText(ActivityIleCwiczy.this, "to jest test", Toast.LENGTH_SHORT).show();
+                } else if (runningWork && !runningRest) {
 
                     //NORMAL REST
-
                     if (!periodBooleannn) {
-
-                        //Toast.makeText(ActivityIleCwiczy.this, "kiedy szary", Toast.LENGTH_SHORT).show();
-
-
                         chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                             @Override
                             public void onChronometerTick(Chronometer chronometerRest) {
@@ -392,11 +243,8 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                         onClickStopWork();
                         onClickResetWork();
 
-
                     } else if (periodBooleannn) {
-
-                        Toast.makeText(ActivityIleCwiczy.this, "REST period "+periodValueInttt+" s", Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(ActivityIleCwiczy.this, "REST period " + periodValueInttt + " s", Toast.LENGTH_SHORT).show();
                         onClickStartRest();
                         goRest();
                         onClickStopWork();
@@ -406,7 +254,6 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                             @Override
                             public void onChronometerTick(Chronometer chronometerRest) {
                                 if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > periodValueInttt * 1000) {
-
                                     onClickStartWrok();
                                     letsWork();
                                     onClickStopRest();
@@ -414,31 +261,17 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                                 }
                             }
                         });
-
                     }
-
                 }
-                // GO REST
-
-
-                        //30s REST
-
-
-
-
-
-
+ // GO REST
+                                // ZMIANA BUTTONA NA SEEKBAR ZPSTAWIC POKI CO
+                //30s REST
 
               /*  if ( runningWork &&!runningRest){
 
-
-                 //NORMAL REST
-
+//NORMAL REST
                     if (!trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen){
-
                         //Toast.makeText(ActivityIleCwiczy.this, "kiedy szary", Toast.LENGTH_SHORT).show();
-
-
                         chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                             @Override
                             public void onChronometerTick(Chronometer chronometerRest) {
@@ -454,13 +287,10 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                         onClickResetWork();
                     } else
 
-
                  //30s REST
 
                     if (trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen){
-
                         Toast.makeText(ActivityIleCwiczy.this, "REST period 30s", Toast.LENGTH_SHORT).show();
-
                         onClickStartRest();
                         goRest();
                         onClickStopWork();
@@ -470,7 +300,6 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                             @Override
                             public void onChronometerTick(Chronometer chronometerRest) {
                                 if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > periodValueInttt*1000 ){
-
                                     onClickStartWrok();
                                     letsWork();
                                     onClickStopRest();
@@ -478,18 +307,15 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                                 }
                             }
                         });
-
                     }
 
                   //60s REST
                     if (!trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen){
-
                         Toast.makeText(ActivityIleCwiczy.this, "REST period 60s", Toast.LENGTH_SHORT).show();
                         onClickStartRest();
                         goRest();
                         onClickStopWork();
                         onClickResetWork();
-
                         chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                             @Override
                             public void onChronometerTick(Chronometer chronometerRest) {
@@ -502,18 +328,15 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                                 }
                             }
                         });
-
                     }
 
      //90s REST
                     if (trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen){
-
                         Toast.makeText(ActivityIleCwiczy.this, "REST period 90s", Toast.LENGTH_SHORT).show();
                         onClickStartRest();
                         goRest();
                         onClickStopWork();
                         onClickResetWork();
-
                         chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                             @Override
                             public void onChronometerTick(Chronometer chronometerRest) {
@@ -526,98 +349,29 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                                 }
                             }
                         });
-
                     }*/
 
+                else
+ //LEST WORK
+                    if (!runningWork && runningRest) {
+                        if (periodBooleannn) {
+                            Toast.makeText(ActivityIleCwiczy.this, "REST period " + periodValueInttt + " s", Toast.LENGTH_SHORT).show();
+                        }
 
-
-
-
-
-                 else
-
-
-      //LEST WORK
-                if (!runningWork&&runningRest){
-
-
-
-
-                    if ( periodBooleannn){
-
-                        Toast.makeText(ActivityIleCwiczy.this, "REST period "+periodValueInttt+" s", Toast.LENGTH_SHORT).show();
-
+                        if (!periodBooleannn) {
+                            onClickStartWrok();
+                            letsWork();
+                            onClickStopRest();
+                            onClickResetRest();
+                        }
                     }
-
-
-             /*       if (trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen) {
-
-                        Toast.makeText(ActivityIleCwiczy.this, "REST period 90s", Toast.LENGTH_SHORT).show();
-
-                    }
-
-                    if (!trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen) {
-
-                        Toast.makeText(ActivityIleCwiczy.this, "REST period 60s", Toast.LENGTH_SHORT).show();
-                    }
-
-                    if (trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen) {
-
-                        Toast.makeText(ActivityIleCwiczy.this, "REST period 30s", Toast.LENGTH_SHORT).show();
-
-                    }
-
-
-                    if (!trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen) {
-
-
-                        onClickStartWrok();
-                        letsWork();
-                        onClickStopRest();
-                        onClickResetRest();
-                    }*/
-
-
-                    if (!periodBooleannn) {
-
-
-                        onClickStartWrok();
-                        letsWork();
-                        onClickStopRest();
-                        onClickResetRest();
-                    }
-
-
-                }
             }
         });
 
-
         ImageView back = (ImageView) findViewById(R.id.toolbarArrowbackBtn);
 
-    /*    back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent doPreIleCwiczyIntent = new Intent(getApplicationContext(),ActivityPreIleCwiczy.class);
-                startActivity(doPreIleCwiczyIntent);
-            }
-        });*/
 
-        //przycisk powrotu na pasku
-      //  ImageView ilebije = (ImageView) findViewById(R.id.toolchangeBtn);
-
-
-        //klik do ilebije
-  /*      ilebije.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent doMainIntent = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(doMainIntent);
-            }
-        });*/
-
-    // 30 60 90s rest
-
+        // 30 60 90s rest
 /*
         trzydziesciSekundOn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -627,14 +381,11 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                     onTrzydziesciS();
 
          //chrono na 30s
-
                     Toast.makeText(ActivityIleCwiczy.this, "REST period 30s", Toast.LENGTH_SHORT).show();
-
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
                         public void onChronometerTick(Chronometer chronometerRest) {
                             if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 30000){
-
                                 onClickStartWrok();
                                 letsWork();
                                 onClickStopRest();
@@ -650,12 +401,9 @@ public class ActivityIleCwiczy extends AppCompatActivity {
 
          //chrono zerowy
                     Toast.makeText(ActivityIleCwiczy.this, "USER REST", Toast.LENGTH_SHORT).show();
-
-
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
                         public void onChronometerTick(Chronometer chronometerRest) {
-
                             if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 10000){
                             }
                         }
@@ -666,19 +414,13 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                 if (trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen){
                     offTrzysiesciS();
 
-
-
-
-
          //chrono 60s
-
                     Toast.makeText(ActivityIleCwiczy.this, "REST period 60s", Toast.LENGTH_SHORT).show();
 
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
                         public void onChronometerTick(Chronometer chronometerRest) {
                             if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 60000){
-
                                 onClickStartWrok();
                                 letsWork();
                                 onClickStopRest();
@@ -695,7 +437,6 @@ public class ActivityIleCwiczy extends AppCompatActivity {
          //chrono 90s
 
                     Toast.makeText(ActivityIleCwiczy.this, "REST period 90s", Toast.LENGTH_SHORT).show();
-
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
                         public void onChronometerTick(Chronometer chronometerRest) {
@@ -709,18 +450,12 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                         }
                     });
                 }
-
-
-
             }
-
-
         });
 
         szescdziesiatSekundOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 if (!szescdziesiatSekundRestBoolen&&trzysziesciSekundRestBoolean){
                     onSzescdziesiatS();
@@ -728,7 +463,6 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                     //chrono 90s
 
                     Toast.makeText(ActivityIleCwiczy.this, "REST period 90s", Toast.LENGTH_SHORT).show();
-
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
                         public void onChronometerTick(Chronometer chronometerRest) {
@@ -749,9 +483,7 @@ public class ActivityIleCwiczy extends AppCompatActivity {
 
                     //chrono 30s
 
-
                     Toast.makeText(ActivityIleCwiczy.this, "REST period 30s", Toast.LENGTH_SHORT).show();
-
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
                         public void onChronometerTick(Chronometer chronometerRest) {
@@ -764,12 +496,6 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                             }
                         }
                     });
-
-
-
-
-
-
 
                 }if (!szescdziesiatSekundRestBoolen&&!trzysziesciSekundRestBoolean){
                     onSzescdziesiatS();
@@ -790,17 +516,6 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                             }
                         }
                     });
-
-
-
-
-
-
-
-
-
-
-
                 }else
 
                 if (szescdziesiatSekundRestBoolen&&!trzysziesciSekundRestBoolean){
@@ -808,7 +523,6 @@ public class ActivityIleCwiczy extends AppCompatActivity {
 
                     //chrono 0s
                     Toast.makeText(ActivityIleCwiczy.this, "USE REST", Toast.LENGTH_SHORT).show();
-
 
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
@@ -818,35 +532,22 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                             }
                         }
                     });
-
                 }
-
             }
         });*/
 
         StopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                 Stop();
-
-
-
-
-
             }
         });
-
-
 
         periodValueOFf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (periodBooleannn){
-
+                if (periodBooleannn) {
                     periodBooleannn = false;
                     periodValueOFf.setImageResource(R.drawable.tripleoff);
                     periodValue.setText(" ");
@@ -859,31 +560,20 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                         }
                     });
 
+                } else if (!periodBooleannn) {
 
-                } else
-
-                if ( !periodBooleannn){
-
-
-                    if(periodValueInttt==0){
-
+                    if (periodValueInttt == 0) {
                         Toast.makeText(ActivityIleCwiczy.this, "tst", Toast.LENGTH_SHORT).show();
 
-                    } else
-
-
-                    if(periodValueInttt>0){
-
-
-
-                        periodValue.setText(""+periodValueInttt+"s");
+                    } else if (periodValueInttt > 0) {
+                        periodValue.setText("" + periodValueInttt + "s");
                         periodValue.setTextColor(0xFFB73E02);
                         periodBooleannn = true;
                         periodValueOFf.setImageResource(R.drawable.tripleon);
                         chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                             @Override
                             public void onChronometerTick(Chronometer chronometerRest) {
-                                if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > periodValueInttt*1000 ){
+                                if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > periodValueInttt * 1000) {
 
                                     onClickStartWrok();
                                     letsWork();
@@ -892,101 +582,156 @@ public class ActivityIleCwiczy extends AppCompatActivity {
                                 }
                             }
                         });
-                        Toast.makeText(ActivityIleCwiczy.this, "REST period "+periodValueInttt+" s", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityIleCwiczy.this, "REST period " + periodValueInttt + " s", Toast.LENGTH_SHORT).show();
                     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 }
-
-
-                //Toast.makeText(ActivityPreIleCwiczy.this, "nie wiem kiedy to", Toast.LENGTH_SHORT).show();
-
             }
         });
-
-
-
-
-
-
-     //funkcje banera reklamowy AdMob
-
-       /* mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                // Code to be executed when an ad request fails.
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when an ad opens an overlay that
-                // covers the screen.
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when when the user is about to return
-                // to the app after tapping on an ad.
-            }
-        });*/
     }
 
     private void setPeriodValueText() {
-
-
-
-        if(periodBooleannn){
-
-            periodValue.setText(""+periodValueInttt+"s");
-
+        if (periodBooleannn) {
+            periodValue.setText("" + periodValueInttt + "s");
         }
 
-        if(!periodBooleannn){
-
-
+        if (!periodBooleannn) {
             periodValue.setText(" ");
         }
-
-
-
-
     }
-
 
     //TU SIE KONCZY onCreate()
 
-
-
-
-  //zmiana The Buttona i kolorow  chronometra
+//zmiana The Buttona i kolorow  chronometra
 
     private void start() {
+        listaETRest = new ArrayList<ElementyTreningu>();
+        mAdapterRest = new AdapterET(listaETRest);
+        mRecyclerViewRest.setAdapter(mAdapterRest);
+        mAdapterRest.notifyDataSetChanged();
+
+ //tworzy array list - musi bo sie wyjebie
+
+        listaETWork = new ArrayList<ElementyTreningu>();
+        mAdapterWork = new AdapterET(listaETWork);
+        mRecyclerViewWork.setAdapter(mAdapterWork);
+        mAdapterWork.notifyDataSetChanged();
+
+        TheButton.setImageResource(R.drawable.work);
+
+        mLaps = 0;
+        mRest = 0;
+
+        chronometerWork.setTextSize(30);
+        chronometerWork.setTextColor(0xFF05681C);
+        chronometerRest.setTextSize(20);
+        chronometerRest.setTextColor(Color.DKGRAY);
+    }
+
+    private void goRest() {
+        stopSaveBoolen = true;
+        StopButton.setImageResource(R.drawable.stop);
+        TheButton.setImageResource(R.drawable.rest);
+        chronometerRest.setTextSize(30);
+        chronometerRest.setTextColor(0xFFB73E02);
+        chronometerWork.setTextSize(20);
+        chronometerWork.setTextColor(Color.DKGRAY);
+        lap = chronometerWork.getText().toString();
+        mLaps++;
+
+//tworzy array list
+        int position = 0;
+        listaETRest.add(0, new ElementyTreningu("SET  no.", mLaps, lap));
+
+//odswierza i pokazuje array list
+        mAdapterRest.notifyItemChanged(position);
+        mAdapterRest.notifyDataSetChanged();
+
+//dodawanie czasów
+        int elapsedMillisWork = (int) (SystemClock.elapsedRealtime() - chronometerWork.getBase());
+        intSumaWork = intSumaWork + elapsedMillisWork;
+    }
+
+    private void letsWork() {
+        stopSaveBoolen = true;
+        StopButton.setImageResource(R.drawable.stop);
+        TheButton.setImageResource(R.drawable.work);
+        chronometerWork.setTextSize(30);
+        chronometerWork.setTextColor(0xFF05681C);
+        chronometerRest.setTextSize(20);
+        chronometerRest.setTextColor(Color.DKGRAY);
+        lap2 = chronometerRest.getText().toString();
+
+        mRest++;
+
+        //tworzy array list
+        int position = 0;
+
+        listaETWork.add(0, new ElementyTreningu("REST  no.", mRest, lap2));
+
+//odswierza i pokazuje array list
+        mAdapterWork.notifyItemChanged(position);
+        mAdapterWork.notifyDataSetChanged();
+
+//dodawanie czasów
+        int elapsedMillisRest = (int) (SystemClock.elapsedRealtime() - chronometerRest.getBase());
+
+        intSumaRest = intSumaRest + elapsedMillisRest;
+    }
+
+    //funkcje chronometrow
+
+    // funkcje głównego buttona dla chronometrow
+
+    private void onClickStartRest() {
+
+        if (!runningRest) {
+            chronometerRest.setBase(SystemClock.elapsedRealtime() - pauseoffsetRest);
+            chronometerRest.start();
+            runningRest = true;
+        }
+    }
+
+    private void onClickStopRest() {
+        if (runningRest) {
+            chronometerRest.stop();
+            pauseoffsetRest = SystemClock.elapsedRealtime() - chronometerRest.getBase();
+            runningRest = false;
+        }
+    }
+
+    private void onClickStopWork() {
+        if (runningWork) {
+            chronometerWork.stop();
+            pauseoffsetWork = SystemClock.elapsedRealtime() - chronometerWork.getBase();
+            runningWork = false;
+        }
+    }
+
+    private void onClickStartWrok() {
+        if (!runningWork) {
+            chronometerWork.setBase(SystemClock.elapsedRealtime() - pauseoffsetWork);
+            chronometerWork.start();
+            runningWork = true;
+
+
+        }
+    }
+
+    public void onClickResetWork() {
+        chronometerWork.setBase(SystemClock.elapsedRealtime());
+        pauseoffsetWork = 0;
+    }
+
+
+    public void onClickResetRest() {
+        chronometerRest.setBase(SystemClock.elapsedRealtime());
+        pauseoffsetRest = 0;
+    }
+
+
+    public void Reset(View view) {
 
         //tworzy array list - musi bo sie wyjebie
-
         listaETRest = new ArrayList<ElementyTreningu>();
         mAdapterRest = new AdapterET(listaETRest);
         mRecyclerViewRest.setAdapter(mAdapterRest);
@@ -994,294 +739,63 @@ public class ActivityIleCwiczy extends AppCompatActivity {
 
 
         //tworzy array list - musi bo sie wyjebie
-
         listaETWork = new ArrayList<ElementyTreningu>();
         mAdapterWork = new AdapterET(listaETWork);
         mRecyclerViewWork.setAdapter(mAdapterWork);
         mAdapterWork.notifyDataSetChanged();
 
-
-        TheButton.setImageResource(R.drawable.work);
-
         mLaps = 0;
         mRest = 0;
-
-
-
-        //telebim.setTextColor(0xFFFF7F2A);
-        //telebim.setText("WORK");
-        //telebim.setTextColor(0xFFFF7F2A);
-        chronometerWork.setTextSize(30);
-        chronometerWork.setTextColor(0xFF05681C);
-        chronometerRest.setTextSize(20);
-        chronometerRest.setTextColor(Color.DKGRAY);
-
-    }
-
-    private void goRest() {
-
+        intSumaWork = 0;
+        intSumaRest = 0;
 
         stopSaveBoolen = true;
         StopButton.setImageResource(R.drawable.stop);
 
+        runningRest = false;
+        runningWork = false;
+        TheButton.setImageResource(R.drawable.start);
+        //telebim.setText(" ");
 
+        chronometerRest.stop();
+        onClickResetRest();
+        chronometerWork.stop();
+        onClickResetWork();
 
-        TheButton.setImageResource(R.drawable.rest);
-
-
-       // telebim.setTextColor(0xFFB73E02);
-      //  telebim.setText("REST");
-      //  telebim.setTextColor(0xFFB73E02);
-        chronometerRest.setTextSize(30);
-        chronometerRest.setTextColor(0xFFB73E02);
         chronometerWork.setTextSize(20);
         chronometerWork.setTextColor(Color.DKGRAY);
 
-
-
-
-
-
-
-
-
-
-
-
-        lap = chronometerWork.getText().toString();
-
-
-        mLaps++;
-
-
-
-        //tworzy array list
-        int position = 0;
-
-        listaETRest.add(0,new ElementyTreningu("SET  no.", mLaps, lap));
-
-                //odswierza i pokazuje array list
-        mAdapterRest.notifyItemChanged(position);
-        mAdapterRest.notifyDataSetChanged();
-
-        //dodawanie czasów
-
-        int elapsedMillisWork = (int) (SystemClock.elapsedRealtime() - chronometerWork.getBase()) ;
-
-        intSumaWork=intSumaWork+elapsedMillisWork;
-
-       // long intSumaWorkToString = intSumaWork;
-
-       // sumaWork.setText(String.valueOf(intSumaWorkToString));
-
-     /*   mSvlaps.post(new Runnable() {
-            @Override
-            public void run() {
-                mSvlaps.smoothScrollTo(0, textView2.getBottom());
-
-            }
-        });*/
-
-    }
-
-    private void letsWork() {
-
-        stopSaveBoolen = true;
-        StopButton.setImageResource(R.drawable.stop);
-
-
-
-
-        TheButton.setImageResource(R.drawable.work);
-
-        //telebim.setTextColor(0xFFFF7F2A);
-       // telebim.setText("WORK");
-       // telebim.setTextColor(0xFFFF7F2A);
-        chronometerWork.setTextSize(30);
-        chronometerWork.setTextColor(0xFF05681C);
         chronometerRest.setTextSize(20);
         chronometerRest.setTextColor(Color.DKGRAY);
-
-        lap2 = chronometerRest.getText().toString();
-
-
-        mRest++;
-
-        //tworzy array list
-        int position = 0;
-
-        listaETWork.add(0,new ElementyTreningu("REST  no.", mRest, lap2));
-
-        //odswierza i pokazuje array list
-        mAdapterWork.notifyItemChanged(position);
-        mAdapterWork.notifyDataSetChanged();
-
-        //dodawanie czasów
-
-        int elapsedMillisRest = (int) (SystemClock.elapsedRealtime() - chronometerRest.getBase()) ;
-
-        intSumaRest=intSumaRest+elapsedMillisRest;
-
-       // long intSumaRestToString = intSumaRest;
-
-       // sumaRest.setText(String.valueOf(intSumaRestToString));
-
-/*        mSvlaps2.post(new Runnable() {
-            @Override
-            public void run() {
-                mSvlaps.smoothScrollTo(0, textView.getBottom());
-
-            }
-        });*/
-
     }
 
 
-        //funkcje chronometrow
-
-    // funkcje głównego buttona dla chronometrow
-
-        private void onClickStartRest() {
-
-            if (!runningRest){
-                chronometerRest.setBase(SystemClock.elapsedRealtime() - pauseoffsetRest);
-                chronometerRest.start();
-                runningRest = true;
-
-            }
-
-        }
-        private void onClickStopRest() {
-            if (runningRest) {
-                chronometerRest.stop();
-                pauseoffsetRest = SystemClock.elapsedRealtime() - chronometerRest.getBase();
-                runningRest = false;
-            }
-        }
-        private void onClickStopWork() {
-
-            if (runningWork) {
-                chronometerWork.stop();
-                pauseoffsetWork = SystemClock.elapsedRealtime() - chronometerWork.getBase();
-                runningWork = false;
-            }
-        }
-
-        private void onClickStartWrok() {
-
-            if (!runningWork){
-                chronometerWork.setBase(SystemClock.elapsedRealtime() - pauseoffsetWork);
-                chronometerWork.start();
-                runningWork = true;
-
-
-            }
-        }
-
-
-
-        public void onClickResetWork() {
-
-            chronometerWork.setBase(SystemClock.elapsedRealtime());
-            pauseoffsetWork = 0;
-        }
-
-
-
-        public void onClickResetRest() {
-
-            chronometerRest.setBase(SystemClock.elapsedRealtime());
-            pauseoffsetRest = 0;
-        }
-
-
-
-
-        public void Reset(View view) {
-
-
-
-
-            //tworzy array list - musi bo sie wyjebie
-
-            listaETRest = new ArrayList<ElementyTreningu>();
-            mAdapterRest = new AdapterET(listaETRest);
-            mRecyclerViewRest.setAdapter(mAdapterRest);
-            mAdapterRest.notifyDataSetChanged();
-
-
-            //tworzy array list - musi bo sie wyjebie
-
-            listaETWork = new ArrayList<ElementyTreningu>();
-            mAdapterWork = new AdapterET(listaETWork);
-            mRecyclerViewWork.setAdapter(mAdapterWork);
-            mAdapterWork.notifyDataSetChanged();
-
-
-            mLaps = 0;
-            mRest = 0;
-            intSumaWork = 0;
-            intSumaRest = 0;
-
-
-
-            stopSaveBoolen = true;
-            StopButton.setImageResource(R.drawable.stop);
-
-
-            runningRest = false;
-            runningWork = false;
-            TheButton.setImageResource(R.drawable.start);
-            //telebim.setText(" ");
-
-            chronometerRest.stop();
-            onClickResetRest();
-            chronometerWork.stop();
-            onClickResetWork();
-
-
-            chronometerWork.setTextSize(20);
-            chronometerWork.setTextColor(Color.DKGRAY);
-
-            chronometerRest.setTextSize(20);
-            chronometerRest.setTextColor(Color.DKGRAY);
-        }
-
-
-
- //funkcje 30 60 senud
-
+    //funkcje 30 60 senud
 
    /* public void onSzescdziesiatS() {
 
         szescdziesiatSekundOn.setImageResource(R.drawable.szescdziesiantson);
         szescdziesiatSekundRestBoolen = true;
-
-
     }
 
     public void offSzescdziesiatS(){
-
         szescdziesiatSekundOn.setImageResource(R.drawable.szesdziesiatsoff);
         szescdziesiatSekundRestBoolen = false;
     }
 
     public void onTrzydziesciS() {
-
-
         trzydziesciSekundOn.setImageResource(R.drawable.trzydziescison);
         trzysziesciSekundRestBoolean = true;
     }
 
     public void offTrzysiesciS(){
-
         trzydziesciSekundOn.setImageResource(R.drawable.trzydziescisoff);
         trzysziesciSekundRestBoolean = false;
     }*/
 
 
     //recycler view
-    public void createRecyclerViewWork(){
+    public void createRecyclerViewWork() {
         mRecyclerViewWork = findViewById(R.id.mSvLaps2);
         mRecyclerViewWork.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -1291,7 +805,7 @@ public class ActivityIleCwiczy extends AppCompatActivity {
         mRecyclerViewWork.setAdapter(mAdapterWork);
     }
 
-    public void createRecyclerViewRest(){
+    public void createRecyclerViewRest() {
         mRecyclerViewRest = findViewById(R.id.mSvLaps);
         mRecyclerViewRest.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -1302,47 +816,27 @@ public class ActivityIleCwiczy extends AppCompatActivity {
     }
 
     public void Stop() {
-
-
-
         if (!stopSaveBoolen) {
-
-
             listaCW = new ArrayList<ElementyListyCwiczen>();
-
             String przekazywanNazwaCwiczenia = telebim.getText().toString();
 
+            int secsW = intSumaWork / 1000 / 60;
+            int minsW = intSumaWork / 60000;
 
-           // intSumaWork=intSumaWork+elapsedMillisWork;
-           // intSumaRest=intSumaRest+elapsedMilisRest;
+            String sekundyWork = String.format("%02d",
+                    TimeUnit.MILLISECONDS.toSeconds(intSumaWork) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(intSumaWork)));
 
-
-            int secsW = intSumaWork/1000/60;
-            int minsW = intSumaWork/60000;
-
-
-
-           String sekundyWork = String.format("%02d",
-
-                   TimeUnit.MILLISECONDS.toSeconds(intSumaWork) -
-                           TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(intSumaWork)));
-
-
-
-            int secsR = intSumaRest/1000/60;
-            int minsR = intSumaRest/60000;
-
+            int secsR = intSumaRest / 1000 / 60;
+            int minsR = intSumaRest / 60000;
 
             String sekundyRest = String.format("%02d",
 
                     TimeUnit.MILLISECONDS.toSeconds(intSumaRest) -
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(intSumaRest)));
 
-
-
-            listaCW.add(0, new ElementyListyCwiczen(przekazywanNazwaCwiczenia, minsW+":"+sekundyWork, minsR+":"+sekundyRest, day + "/" + String.format("%02d", month + 1) + "/" + year + " ",
-                    h + ":" + String.format("%02d",m)));
-
+            listaCW.add(0, new ElementyListyCwiczen(przekazywanNazwaCwiczenia, minsW + ":" + sekundyWork, minsR + ":" + sekundyRest, day + "/" + String.format("%02d", month + 1) + "/" + year + " ",
+                    h + ":" + String.format("%02d", m)));
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             SharedPreferences.Editor editorr = preferences.edit();
@@ -1360,121 +854,66 @@ public class ActivityIleCwiczy extends AppCompatActivity {
             editor.putString("dupacycki", json);
             editor.apply();
 
-
             Intent dolistyCwiczenIntent = new Intent(getApplicationContext(), activity_lista_cwiczen.class);
 
-            //dolistyCwiczenIntent.putExtra("sumaWork",intSumaWork);
-            // dolistyCwiczenIntent.putExtra("sumaRest",intSumaRest);
-
-
             startActivity(dolistyCwiczenIntent);
-        }else
-
-        if (stopSaveBoolen) {
+        } else if (stopSaveBoolen) {
 
             stopSaveBoolen = false;
-
             StopButton.setImageResource(R.drawable.save);
-
             chronometerRest.stop();
-
             chronometerWork.stop();
-
 
             chronometerWork.setTextSize(20);
             chronometerWork.setTextColor(Color.DKGRAY);
 
             chronometerRest.setTextSize(20);
             chronometerRest.setTextColor(Color.DKGRAY);
-
-
         }
-
-
-
-
-
-
-
     }
 
-
-    public void ustawieniPeriodBoolean () {
-
+    public void ustawieniPeriodBoolean() {
 
         if (periodBooleannn) {
-
-            periodValueOFf .setImageResource(R.drawable.szescdziesiaton);
-
+            periodValueOFf.setImageResource(R.drawable.szescdziesiaton);
         }
 
-
-        if(!periodBooleannn){
-
-            periodValueOFf .setImageResource(R.drawable.szescdziesiatoff);
-
+        if (!periodBooleannn) {
+            periodValueOFf.setImageResource(R.drawable.szescdziesiatoff);
         }
-
-
     }
 
-
    /* public void ustawienieRestow(){
-
-
 
         if (trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen){
             onTrzydziesciS();
 
             //chrono na 30s
-
             Toast.makeText(ActivityIleCwiczy.this, "REST period 30s", Toast.LENGTH_SHORT).show();
-
-
         }else
 
         if (!trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen){
-
             offTrzysiesciS();
             offSzescdziesiatS();
-
             //chrono zerowy
             Toast.makeText(ActivityIleCwiczy.this, "USER REST", Toast.LENGTH_SHORT).show();
 
-
         }else
-
         if (!trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen){
             offTrzysiesciS();
             onSzescdziesiatS();
-
-
 
             //chrono 60s
 
             Toast.makeText(ActivityIleCwiczy.this, "REST period 60s", Toast.LENGTH_SHORT).show();
 
-
-
         }else
-
         if (trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen){
             onTrzydziesciS();
             onSzescdziesiatS();
 
             //chrono 90s
-
             Toast.makeText(ActivityIleCwiczy.this, "REST period 90s", Toast.LENGTH_SHORT).show();
-
-
         }
-
-
-
-
-
-
-
     }*/
 }
-

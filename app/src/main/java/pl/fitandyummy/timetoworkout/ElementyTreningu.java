@@ -2,11 +2,9 @@ package pl.fitandyummy.timetoworkout;
 
 public class ElementyTreningu {
 
-
     private String elementt;
     private int numerr;
     private String czass;
-
 
     public String getElementt() {
         return elementt;
@@ -32,19 +30,10 @@ public class ElementyTreningu {
         this.czass = czass;
     }
 
-    public ElementyTreningu(String element, int numer, String czas ) {
+    public ElementyTreningu(String element, int numer, String czas) {
 
-        elementt=element;
-        numerr=numer;
-        czass=czas;
-
-
-
-
-
-
-
-
+        elementt = element;
+        numerr = numer;
+        czass = czas;
     }
-
 }

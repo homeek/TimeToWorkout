@@ -2,7 +2,6 @@ package pl.fitandyummy.timetoworkout;
 
 public class ElementyListyCwiczen {
 
-
     private String nazwaCwiczeniaa;
     private String czasWorkk;
     private String czasRestt;
@@ -51,19 +50,10 @@ public class ElementyListyCwiczen {
     }
 
     public ElementyListyCwiczen(String nazwaCwiczenia, String czasWork, String czasRest, String data, String godzina) {
-
         nazwaCwiczeniaa=nazwaCwiczenia;
         czasWorkk=czasWork;
         czasRestt=czasRest;
         dataa=data;
         godzinaa=godzina;
-
-
-
-
-
-
-
     }
-
 }

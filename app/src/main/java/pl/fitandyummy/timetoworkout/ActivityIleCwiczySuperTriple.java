@@ -31,13 +31,8 @@ import com.google.android.gms.ads.MobileAds;*/
 
 public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
 
-
-    private ImageButton StartWork, StopWork, ResetWork, StartRest, StopRest, ResetRest;
-    TextView mocarnoscTxt, nasza, sprobuj,  sumaWork, sumaRest;
     public Typeface text1;
-
-    private TextView  telebimRest;
-
+    private TextView telebimRest;
     private EditText telebimRaz, telebimDwa, telebimCZy;
 
     public Chronometer chronometerWorkRaz;
@@ -53,48 +48,34 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
     public long pauseoffsetWorkCzy;
     public long pauseoffsetRest;
 
-
-
-    private int mLapsRest, mLapsWorksRaz, mLapsWorksDwa ,mLapsWorksCzy, elapsedMillisWork, elapsedMilisRest;
-
+    private int mLapsRest, mLapsWorksRaz, mLapsWorksDwa, mLapsWorksCzy;
     private int intSumaWorkRaz, intSumaWorkDwa, intSumaWorkCzy, intSumaRest;
-
 
     private ImageView TheButton, StopButton, trzydziesciSekundOn, szescdziesiatSekundOn;
 
-
     public String lapRest, lapWorkDwa, lapWorkCzy, lapWorkRaz;
 
-   // private AdView mAdView;
-
-    public boolean trzysziesciSekundRestBoolean, szescdziesiatSekundRestBoolen =false;
+    // private AdView mAdView;
+    public boolean trzysziesciSekundRestBoolean, szescdziesiatSekundRestBoolen = false;
     public boolean stopSaveBoolen;
 
-    private RecyclerView mRecyclerViewWorkRaz, mRecyclerViewWorkDwa,  mRecyclerViewWorkCzy, mRecyclerViewRest;
-    private RecyclerView.Adapter mAdapterWorkRaz, mAdapterWorkDwa,  mAdapterWorkCzy, mAdapterRest;
+    private RecyclerView mRecyclerViewWorkRaz, mRecyclerViewWorkDwa, mRecyclerViewWorkCzy, mRecyclerViewRest;
+    private RecyclerView.Adapter mAdapterWorkRaz, mAdapterWorkDwa, mAdapterWorkCzy, mAdapterRest;
     private RecyclerView.LayoutManager mLayoutManager;
-    public ArrayList<ElementyTreningu> listaETWorkRaz, listaETWorkDwa, listaETWorkCzy, listaETRest ;
+    public ArrayList<ElementyTreningu> listaETWorkRaz, listaETWorkDwa, listaETWorkCzy, listaETRest;
     public ArrayList<ElementyListyCwiczen> listaCW;
 
-     int year;
-     int month;
-     int day;
+    int year;
+    int month;
+    int day;
 
-     int h ;
-    int m ;
-    int hStartu ;
-    int mStartu ;
-
-
+    int h;
+    int m;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ile_cwiczy_super_triple);
-
-
-
-
 
         createRecyclerViewWorkRaz();
         createRecyclerViewWorkDwa();
@@ -102,7 +83,6 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
         createRecyclerViewRest();
 
         //tworzy array list - musi bo sie wyjebie
-
         listaETWorkRaz = new ArrayList<ElementyTreningu>();
         listaETWorkDwa = new ArrayList<ElementyTreningu>();
         listaETWorkCzy = new ArrayList<ElementyTreningu>();
@@ -124,56 +104,33 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
         mAdapterWorkCzy.notifyDataSetChanged();
         mAdapterRest.notifyDataSetChanged();
 
-
         //baner AdMob
-
-       // MobileAds.initialize(getApplicationContext(), "ca-app-pub-7671780201496787~8122554600");
-
+        // MobileAds.initialize(getApplicationContext(), "ca-app-pub-7671780201496787~8122554600");
        /* MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
 
-
         mAdView = findViewById(R.id.adView);
-
         AdRequest adRequest = new AdRequest.Builder()
-
              //   .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
 
         mAdView.loadAd(adRequest);*/
 
-
         //deklaracja obiektow z xml
-
         chronometerWorkRaz = (Chronometer) findViewById(R.id.chronoWorkRaz);
         chronometerWorkDwa = (Chronometer) findViewById(R.id.chronoWorkDwa);
         chronometerWorkCzy = (Chronometer) findViewById(R.id.chronoWorkCzy);
         chronometerRest = (Chronometer) findViewById(R.id.chronoRest);
 
-
-
         TheButton = (ImageView) findViewById(R.id.button2);
         trzydziesciSekundOn = (ImageView) findViewById(R.id.trzydziesciSOff);
         szescdziesiatSekundOn = (ImageView) findViewById(R.id.szescdziesiatSOff);
-       // trzydziesciSekundOn = (ImageView) findViewById(R.id.trzydziesciSOff);
-      //  szescdziesiatSekundOn = (ImageView) findViewById(R.id.szescdziesiatSOff);
 
         StopButton = (ImageView) findViewById(R.id.savebutton);
-
-
-        //  nasza = (TextView) findViewById(R.id.naszaapka);
-        //  sprobuj = (TextView) findViewById(R.id.sprobuj);
-
-       // mSvlaps = (ScrollView) findViewById(R.id.mSvLaps);
-       // mSvlaps2 = (ScrollView) findViewById(R.id.mSvLaps2);
-       // sumaWork = (TextView) findViewById(R.id.sumaWork);
-      //  sumaRest = (TextView) findViewById(R.id.sumaRest);
-
 
         telebimRaz = (EditText) findViewById(R.id.telebimWorkRaz);
         telebimDwa = (EditText) findViewById(R.id.telebimWorkDwa);
         telebimCZy = (EditText) findViewById(R.id.telebimWorkCzy);
         telebimRest = (TextView) findViewById(R.id.telebimRest);
-
 
         ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT
                 | ItemTouchHelper.RIGHT) {
@@ -185,21 +142,13 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int i) {
-
-                // int position = viewHolder.getAdapterPosition();
-                //  listaLTR.remove(position);
-                //  mAdapterLT.notifyItemRemoved(position);
-             //   listaETWork.remove(viewHolder.getAdapterPosition());
                 listaETRest.remove(viewHolder.getAdapterPosition());
-             //   mAdapterWork.notifyDataSetChanged();
                 mAdapterRest.notifyDataSetChanged();
-
             }
         });
 
-      //  helper.attachToRecyclerView(mRecyclerViewWork);
+        //  helper.attachToRecyclerView(mRecyclerViewWork);
         helper.attachToRecyclerView(mRecyclerViewRest);
-
 
         ItemTouchHelper helper2 = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT
                 | ItemTouchHelper.RIGHT) {
@@ -211,64 +160,40 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int i) {
-
-                // int position = viewHolder.getAdapterPosition();
-                //  listaLTR.remove(position);
-                //  mAdapterLT.notifyItemRemoved(position);
                 listaETWorkRaz.remove(viewHolder.getAdapterPosition());
-              //  listaETRest.remove(viewHolder.getAdapterPosition());
                 mAdapterWorkRaz.notifyDataSetChanged();
-              //  mAdapterRest.notifyDataSetChanged();
-
             }
         });
 
         helper2.attachToRecyclerView(mRecyclerViewWorkRaz);
-       // helper.attachToRecyclerView(mRecyclerViewRest);
-
 
         Intent intent = getIntent();
         String nazwaCiczenia = intent.getStringExtra("nazwaCwiczenia");
-        int rok = intent.getIntExtra("year",99);
-        int miesiac = intent.getIntExtra("month",99);
-        int dzien = intent.getIntExtra("day",99);
-        int godzina = intent.getIntExtra("h",99);
-        int minuty = intent.getIntExtra("m",99);
-        boolean intentTrzysziesciSekundRestBoolean = intent.getBooleanExtra("boolean30",false);
-        boolean intentSzescdziesiatSekundRestBoolen = intent.getBooleanExtra("boolean60",false);
-
+        int rok = intent.getIntExtra("year", 99);
+        int miesiac = intent.getIntExtra("month", 99);
+        int dzien = intent.getIntExtra("day", 99);
+        int godzina = intent.getIntExtra("h", 99);
+        int minuty = intent.getIntExtra("m", 99);
+        boolean intentTrzysziesciSekundRestBoolean = intent.getBooleanExtra("boolean30", false);
+        boolean intentSzescdziesiatSekundRestBoolen = intent.getBooleanExtra("boolean60", false);
 
         trzysziesciSekundRestBoolean = intentTrzysziesciSekundRestBoolean;
         szescdziesiatSekundRestBoolen = intentSzescdziesiatSekundRestBoolen;
 
-
-
-         year = rok;
-         month = miesiac;
-         day = dzien;
-         h = godzina;
-         m = minuty;
-
-
-
-
-
+        year = rok;
+        month = miesiac;
+        day = dzien;
+        h = godzina;
+        m = minuty;
 
         telebimRaz.setText(nazwaCiczenia);
 
-
-
-        text1 = Typeface.createFromAsset(getAssets(),"fonts/KO.ttf");
+        text1 = Typeface.createFromAsset(getAssets(), "fonts/KO.ttf");
 
         chronometerWorkRaz.setTypeface(text1);
         chronometerWorkDwa.setTypeface(text1);
         chronometerWorkCzy.setTypeface(text1);
         chronometerRest.setTypeface(text1);
-
-
-
-//        sumaRest.setTypeface(text1);
-      //  sumaWork.setTypeface(text1);
 
         telebimRaz.setTypeface(text1);
         telebimDwa.setTypeface(text1);
@@ -277,301 +202,205 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
 
         ustawienieRestow();
 
-
-
-    // główny button petla if else
+        // główny button petla if else
 
         TheButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (!runningWorkRaz&&!runningRest&&!runningWorkDwa&&!runningWorkCzy) {
-
-                   // Toast.makeText(ActivityIleCwiczySuperDouble.this, "start", Toast.LENGTH_SHORT).show();
+                if (!runningWorkRaz && !runningRest && !runningWorkDwa && !runningWorkCzy) {
+                    // Toast.makeText(ActivityIleCwiczySuperDouble.this, "start", Toast.LENGTH_SHORT).show();
 
                     onClickStartWrokRaz();
                     start();
                 } else
 
+                    // GO REST
+                    if (!runningWorkRaz && !runningWorkDwa && runningWorkCzy && !runningRest) {
+                        //  Toast.makeText(ActivityIleCwiczySuperDouble.this, "go rest", Toast.LENGTH_SHORT).show();
 
-             // GO REST
-                if ( !runningWorkRaz && !runningWorkDwa&& runningWorkCzy &&!runningRest){
+                        //NORMAL REST
+                        if (!trzysziesciSekundRestBoolean && !szescdziesiatSekundRestBoolen) {
+                            //  Toast.makeText(ActivityIleCwiczySuperDouble.this, "kiedy szary", Toast.LENGTH_SHORT).show();
 
-                  //  Toast.makeText(ActivityIleCwiczySuperDouble.this, "go rest", Toast.LENGTH_SHORT).show();
+                            chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+                                @Override
+                                public void onChronometerTick(Chronometer chronometerRest) {
 
-
-                 //NORMAL REST
-
-                    if (!trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen){
-
-                      //  Toast.makeText(ActivityIleCwiczySuperDouble.this, "kiedy szary", Toast.LENGTH_SHORT).show();
-
-
-                        chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-                            @Override
-                            public void onChronometerTick(Chronometer chronometerRest) {
-
-                                if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 10000){
+                                    if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 10000) {
+                                    }
                                 }
+                            });
+
+                            onClickStartRest();
+                            goRest();
+                            onClickStopWorkCzy();
+                            onClickResetWorkCzy();
+                        } else
+
+                            //30s REST
+                            if (trzysziesciSekundRestBoolean && !szescdziesiatSekundRestBoolen) {
+                                Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 30s", Toast.LENGTH_SHORT).show();
+                                onClickStartRest();
+                                goRest();
+                                onClickStopWorkCzy();
+                                onClickResetWorkCzy();
+
+                                chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+                                    @Override
+                                    public void onChronometerTick(Chronometer chronometerRest) {
+                                        if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 30000) {
+                                            onClickStartWrokRaz();
+                                            letsWorkRaz();
+                                            onClickStopRest();
+                                            onClickResetRest();
+                                        }
+                                    }
+                                });
                             }
-                        });
 
-                        onClickStartRest();
-                        goRest();
+                        //60s REST
+                        if (!trzysziesciSekundRestBoolean && szescdziesiatSekundRestBoolen) {
+                            Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 60s", Toast.LENGTH_SHORT).show();
+                            onClickStartRest();
+                            goRest();
+                            onClickStopWorkCzy();
+                            onClickResetWorkCzy();
 
-                        onClickStopWorkCzy();
+                            chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+                                @Override
+                                public void onChronometerTick(Chronometer chronometerRest) {
+                                    if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 60000) {
+                                        onClickStartWrokRaz();
+                                        letsWorkRaz();
+                                        onClickStopRest();
+                                        onClickResetRest();
+                                    }
+                                }
+                            });
+                        }
 
-                        onClickResetWorkCzy();
+                        //90s REST
+                        if (trzysziesciSekundRestBoolean && szescdziesiatSekundRestBoolen) {
+                            Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 90s", Toast.LENGTH_SHORT).show();
+                            onClickStartRest();
+                            goRest();
+                            onClickStopWorkCzy();
+                            onClickResetWorkCzy();
+
+                            chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+                                @Override
+                                public void onChronometerTick(Chronometer chronometerRest) {
+                                    if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 90000) {
+                                        onClickStartWrokRaz();
+                                        letsWorkRaz();
+                                        onClickStopRest();
+                                        onClickResetRest();
+                                    }
+                                }
+                            });
+                        }
+
                     } else
 
-
-                 //30s REST
-
-                    if (trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen){
-
-                        Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 30s", Toast.LENGTH_SHORT).show();
-
-                        onClickStartRest();
-                        goRest();
-                        onClickStopWorkCzy();
-                        onClickResetWorkCzy();
-
-                        chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-                            @Override
-                            public void onChronometerTick(Chronometer chronometerRest) {
-                                if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 30000){
-
-                                    onClickStartWrokRaz();
-                                    letsWorkRaz();
-                                    onClickStopRest();
-                                    onClickResetRest();
-                                }
-                            }
-                        });
-
-                    }
-
-                  //60s REST
-                    if (!trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen){
-
-                        Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 60s", Toast.LENGTH_SHORT).show();
-                        onClickStartRest();
-                        goRest();
-                        onClickStopWorkCzy();
-                        onClickResetWorkCzy();
-
-                        chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-                            @Override
-                            public void onChronometerTick(Chronometer chronometerRest) {
-                                if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 60000){
-
-                                    onClickStartWrokRaz();
-                                    letsWorkRaz();
-                                    onClickStopRest();
-                                    onClickResetRest();
-                                }
-                            }
-                        });
-
-                    }
-
-     //90s REST
-                    if (trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen){
-
-                        Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 90s", Toast.LENGTH_SHORT).show();
-                        onClickStartRest();
-                        goRest();
-                        onClickStopWorkCzy();
-                        onClickResetWorkCzy();
-
-                        chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-                            @Override
-                            public void onChronometerTick(Chronometer chronometerRest) {
-                                if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 90000){
-
-                                    onClickStartWrokRaz();
-                                    letsWorkRaz();
-                                    onClickStopRest();
-                                    onClickResetRest();
-                                }
-                            }
-                        });
-
-                    }
-
-
-
-
-
-
-                } else
-
-
-      //LEST WORK RAz
-
-
-                if (!runningWorkRaz && !runningWorkDwa && !runningWorkCzy &&runningRest){
-
-                  //  Toast.makeText(ActivityIleCwiczySuperDouble.this, "go raz", Toast.LENGTH_SHORT).show();
-
-
-
-
-
-
-                    if (trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen) {
-
-                        Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 90s", Toast.LENGTH_SHORT).show();
-
-                    }
-
-                    if (!trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen) {
-
-                        Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 60s", Toast.LENGTH_SHORT).show();
-                    }
-
-                    if (trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen) {
-
-                        Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 30s", Toast.LENGTH_SHORT).show();
-
-                    }
-
-
-                    if (!trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen) {
-
-
-                        onClickStartWrokRaz();
-                        letsWorkRaz();
-                        onClickStopRest();
-                        onClickResetRest();
-                    }
-
-
-
-
-                }else
-
-     //LEST WORK DWA
-                    if (!runningWorkDwa&&!runningRest&&runningWorkRaz&& !runningWorkCzy){
-
-
-                       // Toast.makeText(ActivityIleCwiczySuperDouble.this, "go dwa", Toast.LENGTH_SHORT).show();
-
-
-
-                        if (trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen) {
-
-                            Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 90s", Toast.LENGTH_SHORT).show();
-                            onClickStartWrokDwa();
-                            letsWorkDwa();
-                            onClickStopWorkRaz();
-                            onClickResetWorkRaz();
-
-                        }
-
-                        if (!trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen) {
-
-                            Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 60s", Toast.LENGTH_SHORT).show();
-                            onClickStartWrokDwa();
-                            letsWorkDwa();
-                            onClickStopWorkRaz();
-                            onClickResetWorkRaz();
-                        }
-
-                        if (trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen) {
-
-                            Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 30s", Toast.LENGTH_SHORT).show();
-                            onClickStartWrokDwa();
-                            letsWorkDwa();
-                            onClickStopWorkRaz();
-                            onClickResetWorkRaz();
-
-                        }
-
-
-                        if (!trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen) {
-
-
-                            onClickStartWrokDwa();
-                            letsWorkDwa();
-                            onClickStopWorkRaz();
-                            onClickResetWorkRaz();
-                        }
-
-
-
-
-                    }
-
-                    else
-
-                        //LEST WORK CZY
-                        if (runningWorkDwa&&!runningRest&&!runningWorkRaz&& !runningWorkCzy){
-
-
-                            // Toast.makeText(ActivityIleCwiczySuperDouble.this, "go dwa", Toast.LENGTH_SHORT).show();
-
-
-
-                            if (trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen) {
-
+                        //LEST WORK RAz
+                        if (!runningWorkRaz && !runningWorkDwa && !runningWorkCzy && runningRest) {
+                            //  Toast.makeText(ActivityIleCwiczySuperDouble.this, "go raz", Toast.LENGTH_SHORT).show();
+                            if (trzysziesciSekundRestBoolean && szescdziesiatSekundRestBoolen) {
                                 Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 90s", Toast.LENGTH_SHORT).show();
-                                onClickStartWrokCzy();
-                                letsWorkCzy();
-                                onClickStopWorkDwa();
-                                onClickResetWorkDwa();
-
                             }
 
-                            if (!trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen) {
-
+                            if (!trzysziesciSekundRestBoolean && szescdziesiatSekundRestBoolen) {
                                 Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 60s", Toast.LENGTH_SHORT).show();
-                                onClickStartWrokCzy();
-                                letsWorkCzy();
-                                onClickStopWorkDwa();
-                                onClickResetWorkDwa();
-
                             }
 
-                            if (trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen) {
-
+                            if (trzysziesciSekundRestBoolean && !szescdziesiatSekundRestBoolen) {
                                 Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 30s", Toast.LENGTH_SHORT).show();
-                                onClickStartWrokCzy();
-                                letsWorkCzy();
-                                onClickStopWorkDwa();
-                                onClickResetWorkDwa();
-
-
                             }
 
-
-                            if (!trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen) {
-
-
-                                onClickStartWrokCzy();
-                                letsWorkCzy();
-                                onClickStopWorkDwa();
-                                onClickResetWorkDwa();
-
+                            if (!trzysziesciSekundRestBoolean && !szescdziesiatSekundRestBoolen) {
+                                onClickStartWrokRaz();
+                                letsWorkRaz();
+                                onClickStopRest();
+                                onClickResetRest();
                             }
 
+                        } else
 
+                            //LEST WORK DWA
+                            if (!runningWorkDwa && !runningRest && runningWorkRaz && !runningWorkCzy) {
+                                // Toast.makeText(ActivityIleCwiczySuperDouble.this, "go dwa", Toast.LENGTH_SHORT).show();
+                                if (trzysziesciSekundRestBoolean && szescdziesiatSekundRestBoolen) {
+                                    Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 90s", Toast.LENGTH_SHORT).show();
+                                    onClickStartWrokDwa();
+                                    letsWorkDwa();
+                                    onClickStopWorkRaz();
+                                    onClickResetWorkRaz();
+                                }
 
+                                if (!trzysziesciSekundRestBoolean && szescdziesiatSekundRestBoolen) {
+                                    Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 60s", Toast.LENGTH_SHORT).show();
+                                    onClickStartWrokDwa();
+                                    letsWorkDwa();
+                                    onClickStopWorkRaz();
+                                    onClickResetWorkRaz();
+                                }
 
-                        }
+                                if (trzysziesciSekundRestBoolean && !szescdziesiatSekundRestBoolen) {
+                                    Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 30s", Toast.LENGTH_SHORT).show();
+                                    onClickStartWrokDwa();
+                                    letsWorkDwa();
+                                    onClickStopWorkRaz();
+                                    onClickResetWorkRaz();
+                                }
 
+                                if (!trzysziesciSekundRestBoolean && !szescdziesiatSekundRestBoolen) {
+                                    onClickStartWrokDwa();
+                                    letsWorkDwa();
+                                    onClickStopWorkRaz();
+                                    onClickResetWorkRaz();
+                                }
 
+                            } else
 
+                                //LEST WORK CZY
+                                if (runningWorkDwa && !runningRest && !runningWorkRaz && !runningWorkCzy) {
+                                    // Toast.makeText(ActivityIleCwiczySuperDouble.this, "go dwa", Toast.LENGTH_SHORT).show();
+                                    if (trzysziesciSekundRestBoolean && szescdziesiatSekundRestBoolen) {
+                                        Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 90s", Toast.LENGTH_SHORT).show();
+                                        onClickStartWrokCzy();
+                                        letsWorkCzy();
+                                        onClickStopWorkDwa();
+                                        onClickResetWorkDwa();
+                                    }
 
+                                    if (!trzysziesciSekundRestBoolean && szescdziesiatSekundRestBoolen) {
+                                        Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 60s", Toast.LENGTH_SHORT).show();
+                                        onClickStartWrokCzy();
+                                        letsWorkCzy();
+                                        onClickStopWorkDwa();
+                                        onClickResetWorkDwa();
+                                    }
 
+                                    if (trzysziesciSekundRestBoolean && !szescdziesiatSekundRestBoolen) {
+                                        Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 30s", Toast.LENGTH_SHORT).show();
+                                        onClickStartWrokCzy();
+                                        letsWorkCzy();
+                                        onClickStopWorkDwa();
+                                        onClickResetWorkDwa();
+                                    }
 
-
+                                    if (!trzysziesciSekundRestBoolean && !szescdziesiatSekundRestBoolen) {
+                                        onClickStartWrokCzy();
+                                        letsWorkCzy();
+                                        onClickStopWorkDwa();
+                                        onClickResetWorkDwa();
+                                    }
+                                }
             }
         });
 
-
         ImageView back = (ImageView) findViewById(R.id.toolbarArrowbackBtn);
-
     /*    back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -581,8 +410,7 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
         });*/
 
         //przycisk powrotu na pasku
-      //  ImageView ilebije = (ImageView) findViewById(R.id.toolchangeBtn);
-
+        //  ImageView ilebije = (ImageView) findViewById(R.id.toolchangeBtn);
 
         //klik do ilebije
   /*      ilebije.setOnClickListener(new View.OnClickListener() {
@@ -593,25 +421,19 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
             }
         });*/
 
-    // 30 60 90s rest
-
-
+        // 30 60 90s rest
         trzydziesciSekundOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (!trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen){
+                if (!trzysziesciSekundRestBoolean && !szescdziesiatSekundRestBoolen) {
                     onTrzydziesciS();
 
-         //chrono na 30s
-
+                    //chrono na 30s
                     Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 30s", Toast.LENGTH_SHORT).show();
-
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
                         public void onChronometerTick(Chronometer chronometerRest) {
-                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 30000){
-
+                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 30000) {
                                 onClickStartWrokRaz();
                                 letsWorkRaz();
                                 onClickStopRest();
@@ -620,42 +442,30 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
                         }
                     });
 
-                }else
-
-                if (trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen){
+                } else if (trzysziesciSekundRestBoolean && !szescdziesiatSekundRestBoolen) {
                     offTrzysiesciS();
 
-         //chrono zerowy
+                    //chrono zerowy
                     Toast.makeText(ActivityIleCwiczySuperTriple.this, "USER REST", Toast.LENGTH_SHORT).show();
 
-
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
                         public void onChronometerTick(Chronometer chronometerRest) {
 
-                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 10000){
+                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 10000) {
                             }
                         }
                     });
 
-                }else
-
-                if (trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen){
+                } else if (trzysziesciSekundRestBoolean && szescdziesiatSekundRestBoolen) {
                     offTrzysiesciS();
 
-
-
-
-
-         //chrono 60s
-
+                    //chrono 60s
                     Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 60s", Toast.LENGTH_SHORT).show();
-
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
                         public void onChronometerTick(Chronometer chronometerRest) {
-                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 60000){
-
+                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 60000) {
                                 onClickStartWrokRaz();
                                 letsWorkRaz();
                                 onClickStopRest();
@@ -664,20 +474,16 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
                         }
                     });
 
-                }else
-
-                if (!trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen){
+                } else if (!trzysziesciSekundRestBoolean && szescdziesiatSekundRestBoolen) {
                     onTrzydziesciS();
 
-         //chrono 90s
-
+                    //chrono 90s
                     Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 90s", Toast.LENGTH_SHORT).show();
 
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
                         public void onChronometerTick(Chronometer chronometerRest) {
-                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 90000){
-
+                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 90000) {
                                 onClickStartWrokRaz();
                                 letsWorkRaz();
                                 onClickStopRest();
@@ -686,9 +492,6 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
                         }
                     });
                 }
-
-
-
             }
 
 
@@ -698,19 +501,16 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                if (!szescdziesiatSekundRestBoolen&&trzysziesciSekundRestBoolean){
+                if (!szescdziesiatSekundRestBoolen && trzysziesciSekundRestBoolean) {
                     onSzescdziesiatS();
 
                     //chrono 90s
-
                     Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 90s", Toast.LENGTH_SHORT).show();
 
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
                         public void onChronometerTick(Chronometer chronometerRest) {
-                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 90000){
-
+                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 90000) {
                                 onClickStartWrokRaz();
                                 letsWorkRaz();
                                 onClickStopRest();
@@ -719,21 +519,16 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
                         }
                     });
 
-                }else
-
-                if (szescdziesiatSekundRestBoolen&&trzysziesciSekundRestBoolean){
+                } else if (szescdziesiatSekundRestBoolen && trzysziesciSekundRestBoolean) {
                     offSzescdziesiatS();
 
                     //chrono 30s
-
-
                     Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 30s", Toast.LENGTH_SHORT).show();
 
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
                         public void onChronometerTick(Chronometer chronometerRest) {
-                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 30000){
-
+                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 30000) {
                                 onClickStartWrokRaz();
                                 letsWorkRaz();
                                 onClickStopRest();
@@ -741,25 +536,17 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
                             }
                         }
                     });
-
-
-
-
-
-
-
-                }if (!szescdziesiatSekundRestBoolen&&!trzysziesciSekundRestBoolean){
+                }
+                if (!szescdziesiatSekundRestBoolen && !trzysziesciSekundRestBoolean) {
                     onSzescdziesiatS();
 
                     //chrono 60
-
                     Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 60s", Toast.LENGTH_SHORT).show();
 
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
                         public void onChronometerTick(Chronometer chronometerRest) {
-                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 60000){
-
+                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 60000) {
                                 onClickStartWrokRaz();
                                 letsWorkRaz();
                                 onClickStopRest();
@@ -768,63 +555,32 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
                         }
                     });
 
-
-
-
-
-
-
-
-
-
-
-                }else
-
-                if (szescdziesiatSekundRestBoolen&&!trzysziesciSekundRestBoolean){
+                } else if (szescdziesiatSekundRestBoolen && !trzysziesciSekundRestBoolean) {
                     offSzescdziesiatS();
 
                     //chrono 0s
                     Toast.makeText(ActivityIleCwiczySuperTriple.this, "USER REST", Toast.LENGTH_SHORT).show();
 
-
                     chronometerRest.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                         @Override
                         public void onChronometerTick(Chronometer chronometerRest) {
 
-                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 10000){
+                            if ((SystemClock.elapsedRealtime() - chronometerRest.getBase()) > 10000) {
                             }
                         }
                     });
-
                 }
-
             }
         });
 
         StopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                 Stop();
-
-
-
-
-
             }
         });
 
-
-
-
-
-
-
-
-     //funkcje banera reklamowy AdMob
-
+        //funkcje banera reklamowy AdMob
        /* mAdView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
@@ -855,47 +611,35 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
         });*/
     }
 
-
-
     //TU SIE KONCZY onCreate()
 
-
-
-
-  //zmiana The Buttona i kolorow  chronometra
+    //zmiana The Buttona i kolorow  chronometra
 
     private void start() {
 
         //tworzy array list - musi bo sie wyjebie
-
         listaETRest = new ArrayList<ElementyTreningu>();
         mAdapterRest = new AdapterET(listaETRest);
         mRecyclerViewRest.setAdapter(mAdapterRest);
         mAdapterRest.notifyDataSetChanged();
 
-
         //tworzy array list - musi bo sie wyjebie
-
         listaETWorkRaz = new ArrayList<ElementyTreningu>();
         mAdapterWorkRaz = new AdapterET(listaETWorkRaz);
         mRecyclerViewWorkRaz.setAdapter(mAdapterWorkRaz);
         mAdapterWorkRaz.notifyDataSetChanged();
 
-
         //tworzy array list - musi bo sie wyjebie
-
         listaETWorkDwa = new ArrayList<ElementyTreningu>();
         mAdapterWorkDwa = new AdapterET(listaETWorkDwa);
         mRecyclerViewWorkDwa.setAdapter(mAdapterWorkDwa);
         mAdapterWorkDwa.notifyDataSetChanged();
 
         //tworzy array list - musi bo sie wyjebie
-
         listaETWorkCzy = new ArrayList<ElementyTreningu>();
         mAdapterWorkCzy = new AdapterET(listaETWorkCzy);
         mRecyclerViewWorkCzy.setAdapter(mAdapterWorkCzy);
         mAdapterWorkCzy.notifyDataSetChanged();
-
 
         TheButton.setImageResource(R.drawable.work);
 
@@ -904,11 +648,6 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
         mLapsWorksCzy = 0;
         mLapsRest = 0;
 
-
-
-        //telebim.setTextColor(0xFFFF7F2A);
-        //telebim.setText("WORK");
-        //telebim.setTextColor(0xFFFF7F2A);
         chronometerWorkRaz.setTextSize(20);
         chronometerWorkRaz.setTextColor(0xFF05681C);
         chronometerWorkDwa.setTextSize(15);
@@ -917,26 +656,14 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
         chronometerWorkCzy.setTextColor(Color.DKGRAY);
         chronometerRest.setTextSize(15);
         chronometerRest.setTextColor(Color.DKGRAY);
-
     }
 
     private void goRest() {
 
-
-
-
-
         stopSaveBoolen = true;
         StopButton.setImageResource(R.drawable.stop);
-
-
-
         TheButton.setImageResource(R.drawable.rest);
 
-
-       // telebim.setTextColor(0xFFB73E02);
-      //  telebim.setText("REST");
-      //  telebim.setTextColor(0xFFB73E02);
         chronometerRest.setTextSize(20);
         chronometerRest.setTextColor(0xFFB73E02);
 
@@ -949,23 +676,20 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
 
         lapWorkCzy = chronometerWorkCzy.getText().toString();
 
-
         mLapsWorksCzy++;
 
         //tworzy array list
         int position = 0;
 
-        listaETWorkCzy.add(0,new ElementyTreningu("", mLapsWorksCzy, lapWorkCzy));
+        listaETWorkCzy.add(0, new ElementyTreningu("", mLapsWorksCzy, lapWorkCzy));
 
         //odswierza i pokazuje array list
         mAdapterWorkCzy.notifyItemChanged(position);
         mAdapterWorkCzy.notifyDataSetChanged();
 
         //dodawanie czasów
-
-        int elapsedMillisWorkCzy = (int) (SystemClock.elapsedRealtime() - chronometerWorkCzy.getBase()) ;
-
-        intSumaWorkCzy=intSumaWorkCzy+elapsedMillisWorkCzy;
+        int elapsedMillisWorkCzy = (int) (SystemClock.elapsedRealtime() - chronometerWorkCzy.getBase());
+        intSumaWorkCzy = intSumaWorkCzy + elapsedMillisWorkCzy;
     }
 
     private void letsWorkRaz() {
@@ -973,14 +697,8 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
         stopSaveBoolen = true;
         StopButton.setImageResource(R.drawable.stop);
 
-
-
-
         TheButton.setImageResource(R.drawable.workdwa);
 
-        //telebim.setTextColor(0xFFFF7F2A);
-        // telebim.setText("WORK");
-        // telebim.setTextColor(0xFFFF7F2A);
         chronometerWorkRaz.setTextSize(20);
         chronometerWorkRaz.setTextColor(0xFF05681C);
         chronometerWorkDwa.setTextSize(15);
@@ -990,13 +708,12 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
 
         lapRest = chronometerRest.getText().toString();
 
-
         mLapsRest++;
 
         //tworzy array list
         int position = 0;
 
-        listaETRest.add(0,new ElementyTreningu("", mLapsRest, lapRest));
+        listaETRest.add(0, new ElementyTreningu("", mLapsRest, lapRest));
 
         //odswierza i pokazuje array list
         mAdapterRest.notifyItemChanged(position);
@@ -1004,11 +721,8 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
 
         //dodawanie czasów
 
-        int elapsedMillisRest = (int) (SystemClock.elapsedRealtime() - chronometerRest.getBase()) ;
-
-        intSumaRest=intSumaRest+elapsedMillisRest;
-
-
+        int elapsedMillisRest = (int) (SystemClock.elapsedRealtime() - chronometerRest.getBase());
+        intSumaRest = intSumaRest + elapsedMillisRest;
     }
 
     private void letsWorkDwa() {
@@ -1016,14 +730,8 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
         stopSaveBoolen = true;
         StopButton.setImageResource(R.drawable.stop);
 
-
-
-
         TheButton.setImageResource(R.drawable.workraz);
 
-        //telebim.setTextColor(0xFFFF7F2A);
-        // telebim.setText("WORK");
-        // telebim.setTextColor(0xFFFF7F2A);
         chronometerWorkDwa.setTextSize(20);
         chronometerWorkDwa.setTextColor(0xFF05681C);
         chronometerWorkRaz.setTextSize(15);
@@ -1033,25 +741,19 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
 
         lapWorkRaz = chronometerWorkRaz.getText().toString();
 
-
         mLapsWorksRaz++;
 
         //tworzy array list
         int position = 0;
-
-        listaETWorkRaz.add(0,new ElementyTreningu("", mLapsWorksRaz, lapWorkRaz));
+        listaETWorkRaz.add(0, new ElementyTreningu("", mLapsWorksRaz, lapWorkRaz));
 
         //odswierza i pokazuje array list
         mAdapterWorkRaz.notifyItemChanged(position);
         mAdapterWorkRaz.notifyDataSetChanged();
 
         //dodawanie czasów
-
-        int elapsedMillisWorkRaz = (int) (SystemClock.elapsedRealtime() - chronometerWorkRaz.getBase()) ;
-
-        intSumaWorkRaz=intSumaWorkRaz+elapsedMillisWorkRaz;
-
-
+        int elapsedMillisWorkRaz = (int) (SystemClock.elapsedRealtime() - chronometerWorkRaz.getBase());
+        intSumaWorkRaz = intSumaWorkRaz + elapsedMillisWorkRaz;
     }
 
     private void letsWorkCzy() {
@@ -1059,14 +761,8 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
         stopSaveBoolen = true;
         StopButton.setImageResource(R.drawable.stop);
 
-
-
-
         TheButton.setImageResource(R.drawable.workczy);
 
-        //telebim.setTextColor(0xFFFF7F2A);
-        // telebim.setText("WORK");
-        // telebim.setTextColor(0xFFFF7F2A);
         chronometerWorkCzy.setTextSize(20);
         chronometerWorkCzy.setTextColor(0xFF05681C);
         chronometerWorkRaz.setTextSize(15);
@@ -1077,70 +773,59 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
         chronometerRest.setTextColor(Color.DKGRAY);
 
         lapWorkDwa = chronometerWorkDwa.getText().toString();
-
-
         mLapsWorksDwa++;
 
         //tworzy array list
         int position = 0;
 
-        listaETWorkDwa.add(0,new ElementyTreningu("", mLapsWorksDwa, lapWorkDwa));
+        listaETWorkDwa.add(0, new ElementyTreningu("", mLapsWorksDwa, lapWorkDwa));
 
         //odswierza i pokazuje array list
         mAdapterWorkDwa.notifyItemChanged(position);
         mAdapterWorkDwa.notifyDataSetChanged();
 
         //dodawanie czasów
-
-        int elapsedMillisWorkDwa = (int) (SystemClock.elapsedRealtime() - chronometerWorkDwa.getBase()) ;
-
-        intSumaWorkDwa=intSumaWorkDwa+elapsedMillisWorkDwa;
-
-
+        int elapsedMillisWorkDwa = (int) (SystemClock.elapsedRealtime() - chronometerWorkDwa.getBase());
+        intSumaWorkDwa = intSumaWorkDwa + elapsedMillisWorkDwa;
     }
 
 
-        //funkcje chronometrow
+    //funkcje chronometrow
 
     // funkcje głównego buttona dla chronometrow
-
-        private void onClickStartRest() {
-
-            if (!runningRest){
-                chronometerRest.setBase(SystemClock.elapsedRealtime() - pauseoffsetRest);
-                chronometerRest.start();
-                runningRest = true;
-
-            }
-
+    private void onClickStartRest() {
+        if (!runningRest) {
+            chronometerRest.setBase(SystemClock.elapsedRealtime() - pauseoffsetRest);
+            chronometerRest.start();
+            runningRest = true;
         }
-        private void onClickStopRest() {
-            if (runningRest) {
-                chronometerRest.stop();
-                pauseoffsetRest = SystemClock.elapsedRealtime() - chronometerRest.getBase();
-                runningRest = false;
-            }
-        }
-        private void onClickStopWorkRaz() {
+    }
 
-            if (runningWorkRaz) {
-                chronometerWorkRaz.stop();
-                pauseoffsetWorkRaz = SystemClock.elapsedRealtime() - chronometerWorkRaz.getBase();
-                runningWorkRaz = false;
-            }
+    private void onClickStopRest() {
+        if (runningRest) {
+            chronometerRest.stop();
+            pauseoffsetRest = SystemClock.elapsedRealtime() - chronometerRest.getBase();
+            runningRest = false;
         }
+    }
 
-        private void onClickStopWorkDwa() {
-
-             if (runningWorkDwa) {
-                 chronometerWorkDwa.stop();
-                  pauseoffsetWorkDwa = SystemClock.elapsedRealtime() - chronometerWorkDwa.getBase();
-                  runningWorkDwa = false;
-             }
+    private void onClickStopWorkRaz() {
+        if (runningWorkRaz) {
+            chronometerWorkRaz.stop();
+            pauseoffsetWorkRaz = SystemClock.elapsedRealtime() - chronometerWorkRaz.getBase();
+            runningWorkRaz = false;
         }
+    }
+
+    private void onClickStopWorkDwa() {
+        if (runningWorkDwa) {
+            chronometerWorkDwa.stop();
+            pauseoffsetWorkDwa = SystemClock.elapsedRealtime() - chronometerWorkDwa.getBase();
+            runningWorkDwa = false;
+        }
+    }
 
     private void onClickStopWorkCzy() {
-
         if (runningWorkCzy) {
             chronometerWorkCzy.stop();
             pauseoffsetWorkCzy = SystemClock.elapsedRealtime() - chronometerWorkCzy.getBase();
@@ -1149,172 +834,131 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
     }
 
 
-
-
-        private void onClickStartWrokRaz() {
-
-            if (!runningWorkRaz){
-                chronometerWorkRaz.setBase(SystemClock.elapsedRealtime() - pauseoffsetWorkRaz);
-                chronometerWorkRaz.start();
-                runningWorkRaz = true;
-
-
-            }
+    private void onClickStartWrokRaz() {
+        if (!runningWorkRaz) {
+            chronometerWorkRaz.setBase(SystemClock.elapsedRealtime() - pauseoffsetWorkRaz);
+            chronometerWorkRaz.start();
+            runningWorkRaz = true;
         }
+    }
 
-        private void onClickStartWrokDwa() {
-
-          if (!runningWorkDwa){
+    private void onClickStartWrokDwa() {
+        if (!runningWorkDwa) {
             chronometerWorkDwa.setBase(SystemClock.elapsedRealtime() - pauseoffsetWorkDwa);
             chronometerWorkDwa.start();
             runningWorkDwa = true;
-
-
-          }
         }
+    }
 
     private void onClickStartWrokCzy() {
-
-        if (!runningWorkCzy){
+        if (!runningWorkCzy) {
             chronometerWorkCzy.setBase(SystemClock.elapsedRealtime() - pauseoffsetWorkCzy);
             chronometerWorkCzy.start();
             runningWorkCzy = true;
-
-
         }
     }
 
 
+    public void onClickResetWorkRaz() {
+        chronometerWorkRaz.setBase(SystemClock.elapsedRealtime());
+        pauseoffsetWorkRaz = 0;
+    }
 
 
+    public void onClickResetWorkDwa() {
+        chronometerWorkDwa.setBase(SystemClock.elapsedRealtime());
+        pauseoffsetWorkDwa = 0;
+    }
 
-        public void onClickResetWorkRaz() {
-
-            chronometerWorkRaz.setBase(SystemClock.elapsedRealtime());
-            pauseoffsetWorkRaz = 0;
-        }
-
-
-        public void onClickResetWorkDwa() {
-
-            chronometerWorkDwa.setBase(SystemClock.elapsedRealtime());
-            pauseoffsetWorkDwa = 0;
-        }
-
-        public void onClickResetWorkCzy() {
-
-            chronometerWorkCzy.setBase(SystemClock.elapsedRealtime());
-            pauseoffsetWorkCzy = 0;
-
-          }
+    public void onClickResetWorkCzy() {
+        chronometerWorkCzy.setBase(SystemClock.elapsedRealtime());
+        pauseoffsetWorkCzy = 0;
+    }
 
 
-        public void onClickResetRest() {
-
-            chronometerRest.setBase(SystemClock.elapsedRealtime());
-            pauseoffsetRest = 0;
-        }
-
+    public void onClickResetRest() {
+        chronometerRest.setBase(SystemClock.elapsedRealtime());
+        pauseoffsetRest = 0;
+    }
 
 
+    public void Reset(View view) {
 
-        public void Reset(View view) {
+        //tworzy array list - musi bo sie wyjebie
+        listaETRest = new ArrayList<ElementyTreningu>();
+        mAdapterRest = new AdapterET(listaETRest);
+        mRecyclerViewRest.setAdapter(mAdapterRest);
+        mAdapterRest.notifyDataSetChanged();
 
-
-
-
-            //tworzy array list - musi bo sie wyjebie
-
-            listaETRest = new ArrayList<ElementyTreningu>();
-            mAdapterRest = new AdapterET(listaETRest);
-            mRecyclerViewRest.setAdapter(mAdapterRest);
-            mAdapterRest.notifyDataSetChanged();
-
-
-            //tworzy array list - musi bo sie wyjebie
-
-            listaETWorkRaz = new ArrayList<ElementyTreningu>();
-            mAdapterWorkRaz = new AdapterET(listaETWorkRaz);
-            mRecyclerViewWorkRaz.setAdapter(mAdapterWorkRaz);
-            mAdapterWorkRaz.notifyDataSetChanged();
+        //tworzy array list - musi bo sie wyjebie
+        listaETWorkRaz = new ArrayList<ElementyTreningu>();
+        mAdapterWorkRaz = new AdapterET(listaETWorkRaz);
+        mRecyclerViewWorkRaz.setAdapter(mAdapterWorkRaz);
+        mAdapterWorkRaz.notifyDataSetChanged();
 
 
-            //tworzy array list - musi bo sie wyjebie
+        //tworzy array list - musi bo sie wyjebie
+        listaETWorkDwa = new ArrayList<ElementyTreningu>();
+        mAdapterWorkDwa = new AdapterET(listaETWorkDwa);
+        mRecyclerViewWorkDwa.setAdapter(mAdapterWorkDwa);
+        mAdapterWorkDwa.notifyDataSetChanged();
 
-            listaETWorkDwa = new ArrayList<ElementyTreningu>();
-            mAdapterWorkDwa = new AdapterET(listaETWorkDwa);
-            mRecyclerViewWorkDwa.setAdapter(mAdapterWorkDwa);
-            mAdapterWorkDwa.notifyDataSetChanged();
+        //tworzy array list - musi bo sie wyjebie
+        listaETWorkCzy = new ArrayList<ElementyTreningu>();
+        mAdapterWorkCzy = new AdapterET(listaETWorkCzy);
+        mRecyclerViewWorkCzy.setAdapter(mAdapterWorkCzy);
+        mAdapterWorkCzy.notifyDataSetChanged();
 
-            //tworzy array list - musi bo sie wyjebie
+        mLapsWorksRaz = 0;
+        mLapsWorksDwa = 0;
+        mLapsWorksCzy = 0;
+        mLapsRest = 0;
 
-            listaETWorkCzy = new ArrayList<ElementyTreningu>();
-            mAdapterWorkCzy = new AdapterET(listaETWorkCzy);
-            mRecyclerViewWorkCzy.setAdapter(mAdapterWorkCzy);
-            mAdapterWorkCzy.notifyDataSetChanged();
+        intSumaWorkRaz = 0;
+        intSumaWorkDwa = 0;
+        intSumaWorkCzy = 0;
+        intSumaRest = 0;
 
+        stopSaveBoolen = true;
+        StopButton.setImageResource(R.drawable.stop);
 
+        runningRest = false;
+        runningWorkRaz = false;
+        runningWorkDwa = false;
+        runningWorkCzy = false;
+        TheButton.setImageResource(R.drawable.start);
 
-            mLapsWorksRaz = 0;
-            mLapsWorksDwa = 0;
-            mLapsWorksCzy = 0;
-            mLapsRest = 0;
+        chronometerRest.stop();
+        onClickResetRest();
+        chronometerWorkRaz.stop();
+        onClickResetWorkRaz();
+        chronometerWorkDwa.stop();
+        onClickResetWorkDwa();
+        chronometerWorkCzy.stop();
+        onClickResetWorkCzy();
 
-            intSumaWorkRaz = 0;
-            intSumaWorkDwa = 0;
-            intSumaWorkCzy = 0;
-            intSumaRest = 0;
+        chronometerWorkRaz.setTextSize(15);
+        chronometerWorkRaz.setTextColor(Color.DKGRAY);
 
+        chronometerWorkDwa.setTextSize(15);
+        chronometerWorkDwa.setTextColor(Color.DKGRAY);
 
+        chronometerWorkCzy.setTextSize(15);
+        chronometerWorkCzy.setTextColor(Color.DKGRAY);
 
-            stopSaveBoolen = true;
-            StopButton.setImageResource(R.drawable.stop);
-
-
-            runningRest = false;
-            runningWorkRaz = false;
-            runningWorkDwa = false;
-            runningWorkCzy = false;
-            TheButton.setImageResource(R.drawable.start);
-            //telebim.setText(" ");
-
-            chronometerRest.stop();
-            onClickResetRest();
-            chronometerWorkRaz.stop();
-            onClickResetWorkRaz();
-            chronometerWorkDwa.stop();
-            onClickResetWorkDwa();
-            chronometerWorkCzy.stop();
-            onClickResetWorkCzy();
-
-
-            chronometerWorkRaz.setTextSize(15);
-            chronometerWorkRaz.setTextColor(Color.DKGRAY);
-
-            chronometerWorkDwa.setTextSize(15);
-            chronometerWorkDwa.setTextColor(Color.DKGRAY);
-
-            chronometerWorkCzy.setTextSize(15);
-            chronometerWorkCzy.setTextColor(Color.DKGRAY);
-
-            chronometerRest.setTextSize(15);
-            chronometerRest.setTextColor(Color.DKGRAY);
-        }
+        chronometerRest.setTextSize(15);
+        chronometerRest.setTextColor(Color.DKGRAY);
+    }
 
 
-
- //funkcje 30 60 senud
-
+    //funkcje 30 60 senud
 
     public void onSzescdziesiatS() {
-
         szescdziesiatSekundOn.setImageResource(R.drawable.szescdziesiaton);
         szescdziesiatSekundRestBoolen = true;
-
-
     }
 
-    public void offSzescdziesiatS(){
+    public void offSzescdziesiatS() {
 
         szescdziesiatSekundOn.setImageResource(R.drawable.szescdziesiatoff);
         szescdziesiatSekundRestBoolen = false;
@@ -1322,20 +966,18 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
 
     public void onTrzydziesciS() {
 
-
         trzydziesciSekundOn.setImageResource(R.drawable.trzydziescion);
         trzysziesciSekundRestBoolean = true;
     }
 
-    public void offTrzysiesciS(){
+    public void offTrzysiesciS() {
 
         trzydziesciSekundOn.setImageResource(R.drawable.trzydziescioff);
         trzysziesciSekundRestBoolean = false;
     }
 
-
     //recycler view
-    public void createRecyclerViewWorkRaz(){
+    public void createRecyclerViewWorkRaz() {
         mRecyclerViewWorkRaz = findViewById(R.id.workRazRecyclerView);
         mRecyclerViewWorkRaz.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -1345,7 +987,7 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
         mRecyclerViewWorkRaz.setAdapter(mAdapterWorkRaz);
     }
 
-    public void createRecyclerViewWorkDwa(){
+    public void createRecyclerViewWorkDwa() {
         mRecyclerViewWorkDwa = findViewById(R.id.workDwaRecyclerView);
         mRecyclerViewWorkDwa.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -1355,8 +997,7 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
         mRecyclerViewWorkDwa.setAdapter(mAdapterWorkDwa);
     }
 
-
-    public void createRecyclerViewWorkCzy(){
+    public void createRecyclerViewWorkCzy() {
         mRecyclerViewWorkCzy = findViewById(R.id.workCzyRecyclerView);
         mRecyclerViewWorkCzy.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -1366,7 +1007,7 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
         mRecyclerViewWorkCzy.setAdapter(mAdapterWorkCzy);
     }
 
-    public void createRecyclerViewRest(){
+    public void createRecyclerViewRest() {
         mRecyclerViewRest = findViewById(R.id.restRecyclerView);
         mRecyclerViewRest.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -1378,10 +1019,7 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
 
     public void Stop() {
 
-
-
         if (!stopSaveBoolen) {
-
 
             listaCW = new ArrayList<ElementyListyCwiczen>();
 
@@ -1391,23 +1029,17 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
 
             String przekazywanNazwaCwiczenia = przekazywanNazwaCwiczeniaPierwszego + ", " + przekazywanNazwaCwiczeniaDrugiego + ", " + przekazywanNazwaCwiczeniaTrzeciego;
 
-
-
-           // intSumaWork=intSumaWork+elapsedMillisWork;
-           // intSumaRest=intSumaRest+elapsedMilisRest;
-
-
             int secsWRaz = intSumaWorkRaz;
-            int minsWRaz = secsWRaz/60;
+            int minsWRaz = secsWRaz / 60;
 
             int secsWDwa = intSumaWorkDwa;
-            int minsWDwa = secsWDwa/60;
+            int minsWDwa = secsWDwa / 60;
 
             int secsWCzy = intSumaWorkCzy;
-            int minsWCzy = secsWCzy/60;
+            int minsWCzy = secsWCzy / 60;
 
-            int secsW = secsWRaz+secsWDwa+secsWCzy;
-            int minsW = (intSumaWorkRaz+intSumaWorkDwa+intSumaWorkCzy)/60000;
+            int secsW = secsWRaz + secsWDwa + secsWCzy;
+            int minsW = (intSumaWorkRaz + intSumaWorkDwa + intSumaWorkCzy) / 60000;
 
 
             String sekundyWork = String.format("%02d",
@@ -1415,11 +1047,8 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
                     TimeUnit.MILLISECONDS.toSeconds(secsW) -
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(secsW)));
 
-
-
-            int secsR = intSumaRest/1000;
-            int minsR = intSumaRest/60000;
-
+            int secsR = intSumaRest / 1000;
+            int minsR = intSumaRest / 60000;
 
             String sekundyRest = String.format("%02d",
 
@@ -1427,9 +1056,8 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(intSumaRest)));
 
 
-            listaCW.add(0, new ElementyListyCwiczen(przekazywanNazwaCwiczenia, minsW+":"+sekundyWork, minsR+":"+sekundyRest, day + "/" + String.format("%02d", month + 1) + "/" + year + " ",
-                    h + ":" + String.format("%02d",m)));
-
+            listaCW.add(0, new ElementyListyCwiczen(przekazywanNazwaCwiczenia, minsW + ":" + sekundyWork, minsR + ":" + sekundyRest, day + "/" + String.format("%02d", month + 1) + "/" + year + " ",
+                    h + ":" + String.format("%02d", m)));
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             SharedPreferences.Editor editorr = preferences.edit();
@@ -1447,30 +1075,17 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
             editor.putString("dupacycki", json);
             editor.apply();
 
-
             Intent dolistyCwiczenIntent = new Intent(getApplicationContext(), activity_lista_cwiczen.class);
 
-            //dolistyCwiczenIntent.putExtra("sumaWork",intSumaWork);
-            // dolistyCwiczenIntent.putExtra("sumaRest",intSumaRest);
-
-
             startActivity(dolistyCwiczenIntent);
-        }else
-
-        if (stopSaveBoolen) {
-
+        } else if (stopSaveBoolen) {
             stopSaveBoolen = false;
 
             StopButton.setImageResource(R.drawable.save);
-
             chronometerRest.stop();
-
             chronometerWorkRaz.stop();
-
             chronometerWorkDwa.stop();
-
             chronometerWorkCzy.stop();
-
 
             chronometerWorkRaz.setTextSize(20);
             chronometerWorkRaz.setTextColor(Color.DKGRAY);
@@ -1483,74 +1098,37 @@ public class ActivityIleCwiczySuperTriple extends AppCompatActivity {
 
             chronometerRest.setTextSize(20);
             chronometerRest.setTextColor(Color.DKGRAY);
-
-
         }
-
-
-
-
-
-
-
     }
 
-    public void ustawienieRestow(){
+    public void ustawienieRestow() {
 
-
-
-        if (trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen){
+        if (trzysziesciSekundRestBoolean && !szescdziesiatSekundRestBoolen) {
             onTrzydziesciS();
 
             //chrono na 30s
-
             Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 30s", Toast.LENGTH_SHORT).show();
 
-
-        }else
-
-        if (!trzysziesciSekundRestBoolean&&!szescdziesiatSekundRestBoolen){
-
+        } else if (!trzysziesciSekundRestBoolean && !szescdziesiatSekundRestBoolen) {
             offTrzysiesciS();
             offSzescdziesiatS();
 
             //chrono zerowy
             Toast.makeText(ActivityIleCwiczySuperTriple.this, "USER REST", Toast.LENGTH_SHORT).show();
 
-
-        }else
-
-        if (!trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen){
+        } else if (!trzysziesciSekundRestBoolean && szescdziesiatSekundRestBoolen) {
             offTrzysiesciS();
             onSzescdziesiatS();
 
-
-
             //chrono 60s
-
             Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 60s", Toast.LENGTH_SHORT).show();
 
-
-
-        }else
-
-        if (trzysziesciSekundRestBoolean&&szescdziesiatSekundRestBoolen){
+        } else if (trzysziesciSekundRestBoolean && szescdziesiatSekundRestBoolen) {
             onTrzydziesciS();
             onSzescdziesiatS();
 
             //chrono 90s
-
             Toast.makeText(ActivityIleCwiczySuperTriple.this, "REST period 90s", Toast.LENGTH_SHORT).show();
-
-
         }
-
-
-
-
-
-
-
     }
 }
-
